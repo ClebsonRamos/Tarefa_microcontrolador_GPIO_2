@@ -25,8 +25,8 @@ uint variavel_maquina_de_estado;
 //-----PROTÓTIPOS-----
 void inicializacao_maquina_pio(uint pino);
 void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b);
-void limpar_o_buffer(void);
-void escrever_no_buffer(void);
+void limpar_o_buffer();
+void escrever_no_buffer();
 
 //-----FUNÇÃO PRINCIPAL-----
 int main(void){
@@ -38,6 +38,7 @@ int main(void){
 
 	// A mágica acontece aqui :)
 	while (true){
+	
 	}
 }
 
@@ -75,13 +76,13 @@ void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, co
 }
 
 // Limpa o buffer de pixels.
-void limpar_o_buffer(void){
+void limpar_o_buffer(){
 	for (uint i = 0; i < CONTADOR_LED; ++i)
-		atribuir_cor_ao_led(i, 0, 0, 0);
+		atribuir_cor_ao_led(i,0,0,0);
 }
 
 // Escreve os dados do buffer nos LEDs.
-void escrever_no_buffer(void){
+void escrever_no_buffer(){
 	// Escreve cada dado de 8-bits dos pixels em sequência no buffer da máquina PIO.
 	for (uint i = 0; i < CONTADOR_LED; ++i){
 		pio_sm_put_blocking(maquina_pio, variavel_maquina_de_estado, leds[i].G);
