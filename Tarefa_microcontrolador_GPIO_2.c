@@ -24,7 +24,7 @@ uint variavel_maquina_de_estado;
 
 //-----PROTÓTIPOS-----
 void inicializacao_maquina_pio(uint pino);
-void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b);
+void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b, uint8_t intensidade);
 void limpar_o_buffer(void);
 void escrever_no_buffer(void);
 
@@ -75,16 +75,20 @@ void inicializacao_maquina_pio(uint pino){
 }
 
 // Atribui uma cor RGB a um LED.
-void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b){
-	leds[indice].R = r;
-	leds[indice].G = g;
-	leds[indice].B = b;
+void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b, uint8_t intensidade){
+    if (intensidade > 255) intensidade = 255;
+    if (intensidade < 0) intensidade = 0;
+
+    // Ajusta os valores de RGB conforme a intensidade escolhida
+	leds[indice].R = (r * intensidade) / 255;
+	leds[indice].G = (g * intensidade) / 255;
+	leds[indice].B = (b * intensidade) / 255;
 }
 
 // Limpa o buffer de pixels.
 void limpar_o_buffer(void){
 	for (uint i = 0; i < CONTADOR_LED; ++i)
-		atribuir_cor_ao_led(i, 0, 0, 0);
+		atribuir_cor_ao_led(i, 0, 0, 0, 255);
 }
 
 // Escreve os dados do buffer nos LEDs.
@@ -100,7 +104,7 @@ void escrever_no_buffer(void){
 
 // ADICIONAR AS NOVAS FUNÇÕES A PARTIR DAQUI E INCLUIR O PROTÓTIPO.
 void animacao_seta_para_direita(void){
-    uint vetor[CONTADOR_LED], i, j, frames = 10;
+    uint vetor[CONTADOR_LED], i, j, frames = 10, intensidade = 255;
 
     for(i = 0; i < CONTADOR_LED; i++)
         vetor[i] = 0;
@@ -192,9 +196,9 @@ void animacao_seta_para_direita(void){
         }
         for(j = 0; j < CONTADOR_LED; j++){
             if(vetor[j] == 0){
-                atribuir_cor_ao_led(j, 0, 0, 0);
+                atribuir_cor_ao_led(j, 0, 0, 0, intensidade);
             }else{
-                atribuir_cor_ao_led(j, 0, 0, 1);
+                atribuir_cor_ao_led(j, 0, 0, 1, intensidade);
             }
         }
         escrever_no_buffer();
@@ -203,7 +207,7 @@ void animacao_seta_para_direita(void){
 }
 
 void animacao_seta_para_esquerda(void){
-    uint vetor[CONTADOR_LED], i, j, frames = 10;
+    uint vetor[CONTADOR_LED], i, j, frames = 10, intensidade = 255;
 
     for(i = 0; i < CONTADOR_LED; i++)
         vetor[i] = 0;
@@ -295,9 +299,9 @@ void animacao_seta_para_esquerda(void){
         }
         for(j = 0; j < CONTADOR_LED; j++){
             if(vetor[j] == 0){
-                atribuir_cor_ao_led(j, 0, 0, 0);
+                atribuir_cor_ao_led(j, 0, 0, 0, intensidade);
             }else{
-                atribuir_cor_ao_led(j, 1, 0, 0);
+                atribuir_cor_ao_led(j, 1, 0, 0, intensidade);
             }
         }
         escrever_no_buffer();
@@ -306,7 +310,7 @@ void animacao_seta_para_esquerda(void){
 }
 
 void animacao_boneco(void){
-    int i, frames;
+    int i, frames, intensidade = 255;
     uint vetor[CONTADOR_LED] = {
         0, 1, 0, 1, 0,
         0, 0, 1, 0, 0,
@@ -353,9 +357,9 @@ void animacao_boneco(void){
         }
         for(i = 0; i < CONTADOR_LED; i++){
             if(vetor[i] == 1){
-                atribuir_cor_ao_led(i, 0, 0, 1);
+                atribuir_cor_ao_led(i, 0, 0, 1, intensidade);
             } else{
-                atribuir_cor_ao_led(i, 0, 0, 0);
+                atribuir_cor_ao_led(i, 0, 0, 0, intensidade);
             }
         }
         escrever_no_buffer();
@@ -364,7 +368,7 @@ void animacao_boneco(void){
 }
 
 void animacao_coracao(void){
-    int i, frames;
+    int i, frames, intensidade = 255;
     uint vetor[CONTADOR_LED] = {
         0, 0, 0, 0, 0,
         0, 0, 0, 0, 0,
@@ -417,16 +421,16 @@ void animacao_coracao(void){
         for(i = 0; i < CONTADOR_LED; i++){
             switch(vetor[i]){
                 case 0:
-                    atribuir_cor_ao_led(i, 0, 0, 0);
+                    atribuir_cor_ao_led(i, 0, 0, 0, intensidade);
                     break;
                 case 1:
-                    atribuir_cor_ao_led(i, 1, 0, 0);
+                    atribuir_cor_ao_led(i, 1, 0, 0, intensidade);
                     break;
                 case 2:
-                    atribuir_cor_ao_led(i, 0, 1, 0);
+                    atribuir_cor_ao_led(i, 0, 1, 0, intensidade);
                     break;
                 case 3:
-                    atribuir_cor_ao_led(i, 0, 0, 1);
+                    atribuir_cor_ao_led(i, 0, 0, 1, intensidade);
                     break;
             }
         }
@@ -436,7 +440,7 @@ void animacao_coracao(void){
 }
 
 void animacao_diagonal(void){
-    int i, frames, alternador = 0;
+    int i, frames, alternador = 0, intensidade = 255;
     uint vetor[CONTADOR_LED] = {
         0, 0, 0, 0, 0,
         0, 0, 0, 0, 0,
@@ -466,9 +470,9 @@ void animacao_diagonal(void){
         }
         for(i = 0; i < CONTADOR_LED; i++){
             if(vetor[i] == 1){
-                atribuir_cor_ao_led(i, 0, 0, 0);
+                atribuir_cor_ao_led(i, 0, 0, 0, intensidade);
             }else{
-                atribuir_cor_ao_led(i, 0, 0, 1);
+                atribuir_cor_ao_led(i, 0, 0, 1, intensidade);
             }
         }
         alternador++;
@@ -480,7 +484,7 @@ void animacao_diagonal(void){
 }
 
 void animacao_horizontal(void){
-    int i, j, frames, alternador = 0;
+    int i, j, frames, alternador = 0, intensidade = 255;
     uint vetor[CONTADOR_LED] = {
         0, 0, 0, 0, 0,
         0, 0, 0, 0, 0,
@@ -504,9 +508,9 @@ void animacao_horizontal(void){
             alternador = 0;
         for(i = 0; i < CONTADOR_LED; i++){
             if(vetor[i] == 0){
-                atribuir_cor_ao_led(i, 1, 0, 1);
+                atribuir_cor_ao_led(i, 1, 0, 1, intensidade);
             }else{
-                atribuir_cor_ao_led(i, 1, 1, 0);
+                atribuir_cor_ao_led(i, 1, 1, 0, intensidade);
             }
         }
         escrever_no_buffer();
