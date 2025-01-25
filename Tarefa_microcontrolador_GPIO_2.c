@@ -92,6 +92,13 @@ char mosaico[5][5]={
 int main(void){
 	// Inicializa matriz de LEDs NeoPixel.
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
+	
+	limpar_o_buffer();
+	desenho('M');
+
+	
+	
+		
 	escrever_no_buffer(); // Escreve os dados nos LEDs.
 
 	// A mágica acontece aqui :)
