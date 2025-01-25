@@ -59,26 +59,25 @@ int main(void){
 	// Inicializa matriz de LEDs NeoPixel.
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
 	
-	 uint8_t intensidade = 128; // Define o brilho (50% de intensidade)
-
-    // Atribui a cor verde com a intensidade escolhida
+	 uint8_t intensidade = 128; 
+    
     for (uint i = 0; i < CONTADOR_LED; i++) {
-        atribuir_cor_ao_led(i, 0, 255, 0, intensidade);  // Cor verde com intensidade ajustada
+        atribuir_cor_ao_led(i, 0, 255, 0, intensidade);  
     }
-		// Desenha a letra 'A' na matriz de LEDs
+		
 		for (uint i = 0; i < CONTADOR_LED; i++) {
-        atribuir_cor_ao_led(i, 0, 255, 0, intensidade);  // Cor verde com brilho total
+        atribuir_cor_ao_led(i, 0, 255, 0, intensidade);  
     }
-    escrever_no_buffer(); // Escreve os dados nos LEDs.
-    sleep_ms(3000); // Aguarda 3 segundos.
+    escrever_no_buffer(); 
+    sleep_ms(3000); 
 
-    // Alterando a intensidade para 255 (brilho total)
+   
     intensidade = 255;
     limpar_o_buffer();
     for (uint i = 0; i < CONTADOR_LED; i++) {
-        atribuir_cor_ao_led(i, 0, 255, 0, intensidade);  // Cor verde com brilho total
+        atribuir_cor_ao_led(i, 0, 255, 0, intensidade);  
     }
-    escrever_no_buffer(); // Escreve os dados nos LEDs.
+    escrever_no_buffer(); 
 
 
 	return 0;
