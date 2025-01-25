@@ -59,25 +59,8 @@ int main(void){
 	// Inicializa matriz de LEDs NeoPixel.
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
 	
-	 uint8_t intensidade = 128; 
-    
-    for (uint i = 0; i < CONTADOR_LED; i++) {
-        atribuir_cor_ao_led(i, 0, 255, 0, intensidade);  
-    }
-		
-		for (uint i = 0; i < CONTADOR_LED; i++) {
-        atribuir_cor_ao_led(i, 0, 255, 0, intensidade);  
-    }
-    escrever_no_buffer(); 
-    sleep_ms(3000); 
-
-   
-    intensidade = 255;
-    limpar_o_buffer();
-    for (uint i = 0; i < CONTADOR_LED; i++) {
-        atribuir_cor_ao_led(i, 0, 255, 0, intensidade);  
-    }
-    escrever_no_buffer(); 
+	 uint8_t intensidade = 255; 
+    desenho('A');
 
 
 	return 0;
@@ -123,7 +106,7 @@ void inicializar_pwm(uint gpio,float clk_div ,uint16_t wrap){
 
 // Atribui uma cor RGB a um LED.
 void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b, uint8_t intensidade) {
-    // Certifique-se de que a intensidade esteja entre 0 e 255
+    
     if (intensidade > 255) intensidade = 255;
     if (intensidade < 0) intensidade = 0;
 
@@ -173,7 +156,7 @@ void  desenho(char letra){
 	for(int x = 0; x < tamanho_matriz; x++){
 		for(int y = 0; y < tamanho_matriz; y++){
 			if(matriz[x][y] == 'R'){
-				atribuir_cor_ao_led(matrizint[x][y],1,0,0, 255);				
+				atribuir_cor_ao_led(matrizint[x][y],1,0,0,255);				
 			}
 			if(matriz[x][y] == 'G'){
 				atribuir_cor_ao_led(matrizint[x][y],0,1,0, 255);
