@@ -10,7 +10,7 @@
 // Definição do número de LEDs e pino.
 #define CONTADOR_LED 25
 #define PINO_MATRIZ_LED 7
-#define PINO_PWM 6 // a porta não esta certa, escolhi essa com o proposito de teste
+#define PINO_PWM 6 // a porta não esta certa, escolhi essa com o proposito de teste caso necessario troque
 // Definição de pixel GRB
 struct pixel_t {
 	uint8_t G, R, B; // Três valores de 8-bits compõem um pixel.
