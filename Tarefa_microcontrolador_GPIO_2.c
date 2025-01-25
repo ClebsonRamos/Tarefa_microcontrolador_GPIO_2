@@ -2,6 +2,9 @@
 #include "pico/stdlib.h"
 #include "hardware/pio.h"
 #include "hardware/clocks.h"
+#include "hardware/pwm.h"
+#include "include/frames.c"
+#
 
 // Biblioteca gerada pelo arquivo .pio durante compilação.
 #include "ws2818b.pio.h"
@@ -29,6 +32,7 @@ void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, co
 void limpar_o_buffer();
 void escrever_no_buffer();
 void desenho(char letra);
+void inicializar_pwm(uint gpio,float clk_div ,uint16_t freq_pwm);
 
 // ------MATRIZ-----
 
@@ -42,66 +46,7 @@ uint matrizint[5][5] = {
     {4, 3, 2, 1, 0}
 };
 
- char matriz_1[5][5]={
-  {'*','*','Y','*','*'},
-  {'*','Y','Y','*','*'},
-  {'*','*','Y','*','*'},
-  {'*','*','Y','*','*'},
-  {'*','Y','Y','Y','*'}
- };
-
- char matriz_B[5][5]={
-  {'*','B','B','*','*'},
-  {'*','B','*','B','*'},
-  {'*','B','B','*','*'},
-  {'*','B','*','B','*'},
-  {'*','B','B','*','*'}
- };
-
-char matriz_A[5][5]={
-  {'*','*','R','*','*'},
-  {'*','R','*','R','*'},
-  {'*','R','R','R','*'},
-  {'*','R','*','R','*'},
-  {'*','R','*','R','*'}
-};  
-char matriz_C[5][5]={
-  {'*','*','G','*','*'},
-  {'*','G','*','G','*'},
-  {'*','G','*','*','*'},
-  {'*','G','*','G','*'},
-  {'*','*','G','*','*'}
-};  
-char matriz_MARIO[5][5]={
-  {'R','R','R','R','R'},
-  {'R','P','P','P','P'},
-  {'R','B','R','R','B'},
-  {'B','B','B','B','B'},
-  {'Y','Y','*','Y','Y'}
-};  
-
-char arcoiris[5][5]={
-	{'R','R','Y','Y','Y'},
-  {'P','R','R','Y','G'},
-  {'P','P','W','G','G'},
-  {'P','B','C','C','G'},
-  {'B','B','B','C','C'}
-};
-char mosaico[5][5]={
-{ '*', '*', 'R', '*', '*' },
-{ '*', 'R', '*', 'B', '*' },
-{ '*', 'G', '*', 'Y', '*' },
-{ '*', 'B', '*', 'G', '*' },
-{ '*', '*', 'C', '*', '*' }
-};
-char boneco[5][5]={
-{ '*', '*', 'W', '*', 'R' },
-{ '*', 'R', 'W', 'R', '*' },
-{ '*', 'R', 'W', '*', '*' },
-{ '*', '*', 'W', '*', '*' },
-{ '*', 'B', '*', 'B', '*' }
-};
-
+ 
 
 void animar(int x, int y){
 	char temp;
@@ -118,15 +63,9 @@ int main(void){
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
 	
 	
-	limpar_o_buffer();
-	desenho('8');
-	sleep_ms(2000);
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	animar( 0,4);
 	
 	limpar_o_buffer();
-	desenho('8');
-	sleep_ms(2000);
+	atribuir_cor_ao_led(0,0,0,1);
 	escrever_no_buffer(); // Escreve os dados nos LEDs.
 
 
@@ -157,6 +96,18 @@ void inicializacao_maquina_pio(uint pino){
 		leds[i].G = 0;
 		leds[i].B = 0;
 	}
+}
+
+
+
+// a função inicialar pwm precisa ser congigurada com o GPIO que vai ser ultilizado(led, ou buzzer) antes
+// frequencia deles é diferente e depois será configurada para uso
+void inicializar_pwm(uint gpio,float clk_div ,uint16_t wrap){
+	gpio_set_function(gpio,GPIO_FUNC_PWM);
+	uint slice_num = pwm_gpio_to_slice_num(gpio);
+	pwm_set_clkdiv(slice_num,clk_div);
+	pwm_set_wrap(slice_num,wrap);
+	pwm_set_enabled(slice_num,true);
 }
 
 // Atribui uma cor RGB a um LED.
