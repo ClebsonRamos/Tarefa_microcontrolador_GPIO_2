@@ -56,11 +56,8 @@ int main(void)
 	int tempo = 1000;
 	
 		limpar_o_buffer();
-		desenho('9');
+		desenho('0');
 		escrever_no_buffer();
-		sleep_ms(300);
-		limpar_o_buffer();
-		sleep_ms(300);
 	
 	/*limpar_o_buffer();
 	desenho('2');
@@ -171,7 +168,7 @@ void limpar_o_buffer()
 {
 	for (uint i = 0; i < CONTADOR_LED; ++i)
 	{
-		atribuir_cor_ao_led(i, 0, 0, 0, 255);
+		atribuir_cor_ao_led(i, 0, 0, 0, intensidade);
 	}
 }
 
