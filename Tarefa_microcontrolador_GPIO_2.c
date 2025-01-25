@@ -54,13 +54,20 @@ void animar(int x, int y){
 
 }
 
+
+uint8_t intensidade = 255; 
 //-----FUNÇÃO PRINCIPAL-----
 int main(void){
 	// Inicializa matriz de LEDs NeoPixel.
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
 	
-	 uint8_t intensidade = 255; 
-    desenho('A');
+	 
+   limpar_o_buffer();	
+	 desenho('A');
+	 escrever_no_buffer();
+
+		
+
 
 
 	return 0;
@@ -156,28 +163,28 @@ void  desenho(char letra){
 	for(int x = 0; x < tamanho_matriz; x++){
 		for(int y = 0; y < tamanho_matriz; y++){
 			if(matriz[x][y] == 'R'){
-				atribuir_cor_ao_led(matrizint[x][y],1,0,0,255);				
+				atribuir_cor_ao_led(matrizint[x][y],255,0,0, 255);				
 			}
 			if(matriz[x][y] == 'G'){
-				atribuir_cor_ao_led(matrizint[x][y],0,1,0, 255);
+				atribuir_cor_ao_led(matrizint[x][y],0,1,0, intensidade);
 			}
 			if(matriz[x][y] == 'B'){
-				atribuir_cor_ao_led(matrizint[x][y],0,0,1, 255);
+				atribuir_cor_ao_led(matrizint[x][y],0,0,1, intensidade);
 			}  
 			if(matriz[x][y] == 'Y'){
-				atribuir_cor_ao_led(matrizint[x][y],1,1,0, 255);
+				atribuir_cor_ao_led(matrizint[x][y],1,1,0, intensidade);
 			}  
 			if(matriz[x][y] == 'P'){
-				atribuir_cor_ao_led(matrizint[x][y],1,0,1, 255);
+				atribuir_cor_ao_led(matrizint[x][y],1,0,1, intensidade);
 			}  
 			if(matriz[x][y] == 'C'){
-				atribuir_cor_ao_led(matrizint[x][y],0,1,1, 255);
+				atribuir_cor_ao_led(matrizint[x][y],0,1,1, intensidade);
 			}  
 			if(matriz[x][y] == 'W'){
-				atribuir_cor_ao_led(matrizint[x][y],1,1,1, 255);			}  
+				atribuir_cor_ao_led(matrizint[x][y],1,1,1, intensidade);			}  
 
 			if(matriz[x][y] == '*'){
-				atribuir_cor_ao_led(matrizint[x][y],0,0,0, 255);
+				atribuir_cor_ao_led(matrizint[x][y],0,0,0, intensidade);
 			} 
 		}			
 	}
