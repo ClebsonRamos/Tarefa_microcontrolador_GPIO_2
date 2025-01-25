@@ -2,9 +2,8 @@
 #include "pico/stdlib.h"
 #include "hardware/pio.h"
 #include "hardware/clocks.h"
-#include "hardware/pwm.h"
+
 #include "include/frames.c"
-#
 
 // Biblioteca gerada pelo arquivo .pio durante compilação.
 #include "ws2818b.pio.h"
@@ -45,14 +44,7 @@ uint matrizint[5][5] = {
 		{14, 13, 12, 11, 10},
 		{5, 6, 7, 8, 9},
 		{4, 3, 2, 1, 0}};
-void animar(int x, int y)
-{
-	char temp;
-	temp = boneco[x][y];
-	boneco[x][y] = '*';
-	x = x + 2;
-	boneco[x][y] = temp;
-}
+
 
 uint8_t intensidade = 255;
 //-----FUNÇÃO PRINCIPAL-----
@@ -60,18 +52,62 @@ int main(void)
 {
 	// Inicializa matriz de LEDs NeoPixel.
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
-
-	intensidade = 100;
-	limpar_o_buffer();
-	desenho('B');
+	intensidade = 170;
+	int tempo = 1000;
+	while(true){
+		limpar_o_buffer();
+		desenho('0');
+		escrever_no_buffer();
+		sleep_ms(300);
+		limpar_o_buffer();
+		sleep_ms(300);
+	}
+	/*limpar_o_buffer();
+	desenho('2');
 	escrever_no_buffer();
-	sleep_ms(3000);
+	sleep_ms(tempo);
 
-	intensidade = 100;
 	limpar_o_buffer();
-	desenho('B');
+	desenho('2');
 	escrever_no_buffer();
+	sleep_ms(tempo);
 
+	limpar_o_buffer();
+	desenho('3');
+	escrever_no_buffer();
+	sleep_ms(tempo);
+
+	while(true){		
+		limpar_o_buffer();
+		desenho('4');
+		escrever_no_buffer();
+		sleep_ms(tempo);
+		
+		limpar_o_buffer();
+		desenho('5');
+		escrever_no_buffer();
+		sleep_ms(tempo);
+		
+		limpar_o_buffer();
+		desenho('6');
+		escrever_no_buffer();
+		sleep_ms(tempo);
+		
+		limpar_o_buffer();
+		desenho('7');
+		escrever_no_buffer();
+		sleep_ms(tempo);
+		
+		limpar_o_buffer();
+		desenho('8');
+		escrever_no_buffer();
+		sleep_ms(tempo);
+		
+		limpar_o_buffer();
+		desenho('9');
+		escrever_no_buffer();
+		sleep_ms(tempo);		
+	}*/
 	return 0;
 }
 
@@ -142,40 +178,44 @@ void limpar_o_buffer()
 void desenho(char letra)
 {
 	char(*matriz)[5];
-	if (letra == 'A')
-	{
-		matriz = matriz_A;
-	}
-	if (letra == 'B')
-	{
-		matriz = matriz_B;
-	}
-	if (letra == 'C')
-	{
-		matriz = matriz_C;
-	}
-	if (letra == 'M')
-	{
-		matriz = matriz_MARIO;
-	}
-	if (letra == '#')
-	{
-		matriz = arcoiris;
-	}
-	if (letra == '@')
-	{
-		matriz = mosaico;
-	}
+	
 	if (letra == '1')
 	{
 		matriz = matriz_1;
 	}
+	if (letra == '2')
+	{
+		matriz = matriz_2;
+	}
+	if (letra == '3')
+	{
+		matriz = matriz_3;
+	}
+	if (letra == '4')
+	{
+		matriz = matriz_4;
+	}
+	if (letra == '5')
+	{
+		matriz = matriz_5;
+	}
+	if (letra == '6')
+	{
+		matriz = matriz_6;
+	}
+	if (letra == '7')
+	{
+		matriz = matriz_7;
+	}
 	if (letra == '8')
 	{
-		matriz = boneco;
+		matriz = matriz_8;
 	}
 	if (letra == '9'){
-		matriz == matriz_1;
+		matriz == matriz_9;
+	}
+	if (letra == '0'){
+		matriz == matriz_0;
 	}
 
 	for (int x = 0; x < tamanho_matriz; x++)

@@ -52,7 +52,7 @@ target_link_libraries(Tarefa_microcontrolador_GPIO_2
         pico_stdlib
         hardware_pio
         hardware_clocks
-        hardware_pwm)
+        )
 
 # Add the standard include files to the build
 target_include_directories(Tarefa_microcontrolador_GPIO_2 PRIVATE
