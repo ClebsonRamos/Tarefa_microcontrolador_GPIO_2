@@ -42,6 +42,14 @@ uint matrizint[5][5] = {
     {4, 3, 2, 1, 0}
 };
 
+ char matriz_1[5][5]={
+  {'*','*','Y','*','*'},
+  {'*','Y','Y','*','*'},
+  {'*','*','Y','*','*'},
+  {'*','*','Y','*','*'},
+  {'*','Y','Y','Y','*'}
+ };
+
  char matriz_B[5][5]={
   {'*','B','B','*','*'},
   {'*','B','*','B','*'},
@@ -99,15 +107,19 @@ int main(void){
     {
     case 1:
         limpar_o_buffer();
-        desenho('A');
+        desenho('1');
+				escrever_no_buffer();
         break;
     case 2: 
         limpar_o_buffer();
         desenho('B');
+				escrever_no_buffer();
         break;
     case 3: 
         limpar_o_buffer();
         desenho('C');
+				escrever_no_buffer();
+				break;
     
     default:
         break;
@@ -184,6 +196,9 @@ void  desenho(char letra){
 		}
 		if ( letra == '@'){
 			matriz = mosaico;
+		}
+		if ( letra == '1'){
+			matriz = matriz_1;
 		}
 
 	for(int x = 0; x < tamanho_matriz; x++){
