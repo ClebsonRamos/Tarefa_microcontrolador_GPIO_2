@@ -28,7 +28,7 @@ uint variavel_maquina_de_estado;
 
 //-----PROTÓTIPOS-----
 void inicializacao_maquina_pio(uint pino);
-void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b);
+void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b, uint8_t intensidade);
 void limpar_o_buffer();
 void escrever_no_buffer();
 void desenho(char letra);
@@ -45,9 +45,6 @@ uint matrizint[5][5] = {
     {5, 6, 7, 8, 9},
     {4, 3, 2, 1, 0}
 };
-
- 
-
 void animar(int x, int y){
 	char temp;
 	temp = boneco[x][y];
@@ -62,15 +59,26 @@ int main(void){
 	// Inicializa matriz de LEDs NeoPixel.
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
 	
-	
-	
-	limpar_o_buffer();
-	atribuir_cor_ao_led(0,0,255,0);
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(3000);
-	limpar_o_buffer();
-	atribuir_cor_ao_led(0,0,500,0);
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
+	 uint8_t intensidade = 128; // Define o brilho (50% de intensidade)
+
+    // Atribui a cor verde com a intensidade escolhida
+    for (uint i = 0; i < CONTADOR_LED; i++) {
+        atribuir_cor_ao_led(i, 0, 255, 0, intensidade);  // Cor verde com intensidade ajustada
+    }
+		// Desenha a letra 'A' na matriz de LEDs
+		for (uint i = 0; i < CONTADOR_LED; i++) {
+        atribuir_cor_ao_led(i, 0, 255, 0, intensidade);  // Cor verde com brilho total
+    }
+    escrever_no_buffer(); // Escreve os dados nos LEDs.
+    sleep_ms(3000); // Aguarda 3 segundos.
+
+    // Alterando a intensidade para 255 (brilho total)
+    intensidade = 255;
+    limpar_o_buffer();
+    for (uint i = 0; i < CONTADOR_LED; i++) {
+        atribuir_cor_ao_led(i, 0, 255, 0, intensidade);  // Cor verde com brilho total
+    }
+    escrever_no_buffer(); // Escreve os dados nos LEDs.
 
 
 	return 0;
@@ -115,18 +123,22 @@ void inicializar_pwm(uint gpio,float clk_div ,uint16_t wrap){
 }
 
 // Atribui uma cor RGB a um LED.
-void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b) {
-    // Aplica redução de 50% na intensidade das cores
-    leds[indice].R = (r * 128) / 255;  // Reduz a intensidade pela metade
-    leds[indice].G = (g * 128) / 255;
-    leds[indice].B = (b * 128) / 255;
+void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b, uint8_t intensidade) {
+    // Certifique-se de que a intensidade esteja entre 0 e 255
+    if (intensidade > 255) intensidade = 255;
+    if (intensidade < 0) intensidade = 0;
+
+    // Ajusta os valores de RGB conforme a intensidade escolhida
+    leds[indice].R = (r * intensidade) / 255;
+    leds[indice].G = (g * intensidade) / 255;
+    leds[indice].B = (b * intensidade) / 255;
 }
 
 
 // Limpa o buffer de pixels.
 void limpar_o_buffer(){	
 	for (uint i = 0; i < CONTADOR_LED; ++i){
-	atribuir_cor_ao_led(i,0,0,0);
+	atribuir_cor_ao_led(i,0,0,0, 255);
 	}			
 }
 
@@ -162,28 +174,28 @@ void  desenho(char letra){
 	for(int x = 0; x < tamanho_matriz; x++){
 		for(int y = 0; y < tamanho_matriz; y++){
 			if(matriz[x][y] == 'R'){
-				atribuir_cor_ao_led(matrizint[x][y],1,0,0);				
+				atribuir_cor_ao_led(matrizint[x][y],1,0,0, 255);				
 			}
 			if(matriz[x][y] == 'G'){
-				atribuir_cor_ao_led(matrizint[x][y],0,1,0);
+				atribuir_cor_ao_led(matrizint[x][y],0,1,0, 255);
 			}
 			if(matriz[x][y] == 'B'){
-				atribuir_cor_ao_led(matrizint[x][y],0,0,1);
+				atribuir_cor_ao_led(matrizint[x][y],0,0,1, 255);
 			}  
 			if(matriz[x][y] == 'Y'){
-				atribuir_cor_ao_led(matrizint[x][y],1,1,0);
+				atribuir_cor_ao_led(matrizint[x][y],1,1,0, 255);
 			}  
 			if(matriz[x][y] == 'P'){
-				atribuir_cor_ao_led(matrizint[x][y],1,0,1);
+				atribuir_cor_ao_led(matrizint[x][y],1,0,1, 255);
 			}  
 			if(matriz[x][y] == 'C'){
-				atribuir_cor_ao_led(matrizint[x][y],0,1,1);
+				atribuir_cor_ao_led(matrizint[x][y],0,1,1, 255);
 			}  
 			if(matriz[x][y] == 'W'){
-				atribuir_cor_ao_led(matrizint[x][y],1,1,1);			}  
+				atribuir_cor_ao_led(matrizint[x][y],1,1,1, 255);			}  
 
 			if(matriz[x][y] == '*'){
-				atribuir_cor_ao_led(matrizint[x][y],0,0,0);
+				atribuir_cor_ao_led(matrizint[x][y],0,0,0, 255);
 			} 
 		}			
 	}
