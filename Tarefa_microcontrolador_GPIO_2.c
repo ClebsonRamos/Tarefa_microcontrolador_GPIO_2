@@ -65,7 +65,11 @@ int main(void){
 	
 	
 	limpar_o_buffer();
-	atribuir_cor_ao_led(0,0,0,1);
+	atribuir_cor_ao_led(0,0,255,0);
+	escrever_no_buffer(); // Escreve os dados nos LEDs.
+	sleep_ms(3000);
+	limpar_o_buffer();
+	atribuir_cor_ao_led(0,0,500,0);
 	escrever_no_buffer(); // Escreve os dados nos LEDs.
 
 
@@ -111,11 +115,13 @@ void inicializar_pwm(uint gpio,float clk_div ,uint16_t wrap){
 }
 
 // Atribui uma cor RGB a um LED.
-void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b){
-	leds[indice].R = r;
-	leds[indice].G = g;
-	leds[indice].B = b;
+void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b) {
+    // Aplica redução de 50% na intensidade das cores
+    leds[indice].R = (r * 128) / 255;  // Reduz a intensidade pela metade
+    leds[indice].G = (g * 128) / 255;
+    leds[indice].B = (b * 128) / 255;
 }
+
 
 // Limpa o buffer de pixels.
 void limpar_o_buffer(){	
