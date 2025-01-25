@@ -205,10 +205,10 @@ void beep(int frequency) {
     int half_period = period / 2;
 
     for (int i = 0; i < 10; i++) {  // Repete 10 vezes para o som
-        gpio_put(BUZZER_PIN, 1); // Ativa o buzzer
+        gpio_put(PINO_BUZZER, 1); // Ativa o buzzer
         sleep_us(half_period); // Atraso de meio período
 
-        gpio_put(BUZZER_PIN, 0); // Desativa o buzzer
+        gpio_put(PINO_BUZZER, 0); // Desativa o buzzer
         sleep_us(half_period); // Atraso de meio período
     }
 }
