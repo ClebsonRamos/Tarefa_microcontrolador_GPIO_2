@@ -36,10 +36,10 @@ int tamanho_matriz = 5;
 
 uint matrizint[5][5] = {
     {24, 23, 22, 21, 20},
-		{15, 16, 17, 18, 19},
-		{14, 13, 12, 11, 10},
-		{5, 6, 7, 8, 9},
-		{4, 3, 2, 1, 0}
+    {15, 16, 17, 18, 19},
+    {14, 13, 12, 11, 10},
+    {5, 6, 7, 8, 9},
+    {4, 3, 2, 1, 0}
 };
 
  char matriz_B[5][5]={
@@ -92,17 +92,6 @@ char mosaico[5][5]={
 int main(void){
 	// Inicializa matriz de LEDs NeoPixel.
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
-	sleep_ms(5000);
-	limpar_o_buffer();
-	desenho('#');
-	sleep_ms(3000);
-	desenho('A');
-	sleep_ms(3000);
-	desenho('B');
-
-	
-	
-		
 	escrever_no_buffer(); // Escreve os dados nos LEDs.
 
 	// A mágica acontece aqui :)
