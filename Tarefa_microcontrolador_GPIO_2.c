@@ -10,7 +10,7 @@
 // Definição do número de LEDs e pino.
 #define CONTADOR_LED 25
 #define PINO_MATRIZ_LED 7
-#define PINO_PWM 6 // a porta não esta certa, escolhi essa com o proposito de teste caso necessario troque
+//#define PINO_PWM_BRILHO 16 // a porta não esta certa, escolhi essa com o proposito de teste caso necessario troque
 // Definição de pixel GRB
 struct pixel_t {
 	uint8_t G, R, B; // Três valores de 8-bits compõem um pixel.
@@ -30,7 +30,7 @@ void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, co
 void limpar_o_buffer();
 void escrever_no_buffer();
 void desenho(char letra);
-void inicializar_pwm(uint pino_pwm,uint freq_pwm);
+void inicializar_pwm(uint gpio,float clk_div ,uint16_t freq_pwm);
 // ------MATRIZ-----
 
 int tamanho_matriz = 5;
@@ -98,8 +98,11 @@ void animacao_horizontal(void);
 
 //-----FUNÇÃO PRINCIPAL-----
 int main(void){
+
 	// Inicializa matriz de LEDs NeoPixel.
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
+    // aparentemente a placa de led não combina com pwm diretamento mais
+    inicializar_pwm(PINO_MATRIZ_LED , 4.0f ,4085);
 	sleep_ms(5000);
 	limpar_o_buffer();
 	desenho('#');
@@ -145,12 +148,14 @@ void inicializacao_maquina_pio(uint pino){
 		leds[i].B = 0;
 	}
 }
-void inicializar_pwm(uint pino_pwm, uint freq_pwm){
-	gpio_set_function(pino_pwm,GPIO_FUNC_PWM);
-	uint slice_num = pwm_gpio_to_slice_num(pino_pwm);
-	pwm_set_clkdiv(slice_num,clock_get_hz(clk_sys)/(freq_pwm * 4096));
-	pwm_set_wrap(slice_num,4095);
-	pwm_set_gpio_level(pino_pwm,2048);
+// a função inicialar pwm precisa ser congigurada com o GPIO que vai ser ultilizado(led, ou buzzer) antes
+// frequencia deles é diferente e depois será configurada para uso
+void inicializar_pwm(uint gpio,float clk_div ,uint16_t wrap){
+	gpio_set_function(gpio,GPIO_FUNC_PWM);
+	uint slice_num = pwm_gpio_to_slice_num(gpio);
+	pwm_set_clkdiv(slice_num,clk_div);
+	pwm_set_wrap(slice_num,wrap);
+	pwm_set_enabled(slice_num,true);
 }
 // Atribui uma cor RGB a um LED.
 void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b){
@@ -522,7 +527,7 @@ void animacao_coracao(void){
                 vetor[17] = 1;
                 break;
             case 3:
-                vetor[12] = 3;
+                vetor[12] = 3;  
                 vetor[7] = 2;
                 vetor[11] = 2;
                 vetor[13] = 2;
