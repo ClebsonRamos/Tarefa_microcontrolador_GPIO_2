@@ -94,46 +94,42 @@ char mosaico[5][5]={
 { '*', 'B', '*', 'G', '*' },
 { '*', '*', 'C', '*', '*' }
 };
+char boneco[5][5]={
+{ '*', '*', 'W', '*', 'R' },
+{ '*', 'R', 'W', 'R', '*' },
+{ '*', 'R', 'W', '*', '*' },
+{ '*', '*', 'W', '*', '*' },
+{ '*', 'B', '*', 'B', '*' }
+};
 
+
+void animar(int x, int y){
+	char temp;
+	temp = boneco[x][y];
+	boneco[x][y] = '*';
+	x = x + 2;
+	boneco[x][y] = temp;
+
+}
 
 //-----FUNÇÃO PRINCIPAL-----
 int main(void){
 	// Inicializa matriz de LEDs NeoPixel.
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
 	
-	limpar_o_buffer();
-    for(int i = 1; i < 4; i++){
-    switch (i)
-    {
-    case 1:
-        limpar_o_buffer();
-        desenho('1');
-				escrever_no_buffer();
-        break;
-    case 2: 
-        limpar_o_buffer();
-        desenho('B');
-				escrever_no_buffer();
-        break;
-    case 3: 
-        limpar_o_buffer();
-        desenho('C');
-				escrever_no_buffer();
-				break;
-    
-    default:
-        break;
-    }
-    sleep_ms(3000);
-    }
 	
-		
+	limpar_o_buffer();
+	desenho('8');
+	sleep_ms(2000);
+	escrever_no_buffer(); // Escreve os dados nos LEDs.
+	animar( 0,4);
+	
+	limpar_o_buffer();
+	desenho('8');
+	sleep_ms(2000);
 	escrever_no_buffer(); // Escreve os dados nos LEDs.
 
-	// A mágica acontece aqui :)
-	while (true){
-		
-	}
+
 	return 0;
 }
 
@@ -200,6 +196,11 @@ void  desenho(char letra){
 		if ( letra == '1'){
 			matriz = matriz_1;
 		}
+		if (letra == '8')
+		{
+			matriz = boneco;
+		}
+		
 
 	for(int x = 0; x < tamanho_matriz; x++){
 		for(int y = 0; y < tamanho_matriz; y++){
