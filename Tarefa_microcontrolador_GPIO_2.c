@@ -30,6 +30,10 @@ void escrever_no_buffer(void);
 
 void animacao_seta_para_direita(void);
 void animacao_seta_para_esquerda(void);
+void animacao_boneco(void);
+void animacao_coracao(void);
+void animacao_diagonal(void);
+void animacao_horizontal(void);
 
 //-----FUNÇÃO PRINCIPAL-----
 int main(void){
@@ -298,5 +302,214 @@ void animacao_seta_para_esquerda(void){
         }
         escrever_no_buffer();
         sleep_ms(100);
+    }
+}
+
+void animacao_boneco(void){
+    int i, frames;
+    uint vetor[CONTADOR_LED] = {
+        0, 1, 0, 1, 0,
+        0, 0, 1, 0, 0,
+        1, 0, 1, 0, 1,
+        0, 1, 1, 1, 0,
+        0, 0, 1, 0, 0
+    };
+
+    for(frames = 0; frames < 9; frames++){
+        // Atualiza os LEDs
+        switch(frames){
+            case 1:
+                vetor[10] = 0;
+                vetor[19] = 1;
+                break;
+            case 2:
+                vetor[19] = 0;
+                vetor[20] = 1;
+                break;
+            case 3:
+                vetor[19] = 1;
+                vetor[20] = 0;
+                break;
+            case 4:
+                vetor[19] = 0;
+                vetor[10] = 1;
+                break;
+            case 5:
+                vetor[14] = 0;
+                vetor[15] = 1;
+                break;
+            case 6:
+                vetor[15] = 0;
+                vetor[24] = 1;
+                break;
+            case 7:
+                vetor[24] = 0;
+                vetor[15] = 1;
+                break;
+            case 8:
+                vetor[15] = 0;
+                vetor[14] = 1;
+                break;
+        }
+        for(i = 0; i < CONTADOR_LED; i++){
+            if(vetor[i] == 1){
+                atribuir_cor_ao_led(i, 0, 0, 1);
+            } else{
+                atribuir_cor_ao_led(i, 0, 0, 0);
+            }
+        }
+        escrever_no_buffer();
+        sleep_ms(500);
+    }
+}
+
+void animacao_coracao(void){
+    int i, frames;
+    uint vetor[CONTADOR_LED] = {
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0
+    };
+
+    for(frames = 0; frames < 6; frames++){
+        // Atualiza os LEDs
+        switch(frames){
+            case 1:
+                vetor[12] = 1;
+                break;
+            case 2:
+                vetor[12] = 2;
+                vetor[7] = 1;
+                vetor[11] = 1;
+                vetor[13] = 1;
+                vetor[17] = 1;
+                break;
+            case 3:
+                vetor[12] = 3;
+                vetor[7] = 2;
+                vetor[11] = 2;
+                vetor[13] = 2;
+                vetor[17] = 2;
+                vetor[2] = 1;
+                vetor[6] = 1;
+                vetor[8] = 1;
+                vetor[10] = 1;
+                vetor[14] = 1;
+                vetor[16] = 1;
+                vetor[18] = 1;
+                vetor[22] = 1;
+                break;
+            case 4:
+                vetor[15] = 1;
+                vetor[19] = 1;
+                vetor[21] = 1;
+                vetor[23] = 1;
+                vetor[16] = 2;
+                vetor[18] = 2;
+                break;
+            case 5:
+                vetor[22] = 0;
+                vetor[17] = 1;
+                break;
+        }
+        for(i = 0; i < CONTADOR_LED; i++){
+            switch(vetor[i]){
+                case 0:
+                    atribuir_cor_ao_led(i, 0, 0, 0);
+                    break;
+                case 1:
+                    atribuir_cor_ao_led(i, 1, 0, 0);
+                    break;
+                case 2:
+                    atribuir_cor_ao_led(i, 0, 1, 0);
+                    break;
+                case 3:
+                    atribuir_cor_ao_led(i, 0, 0, 1);
+                    break;
+            }
+        }
+        escrever_no_buffer();
+        sleep_ms(500);
+    }
+}
+
+void animacao_diagonal(void){
+    int i, frames, alternador = 0;
+    uint vetor[CONTADOR_LED] = {
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0
+    };
+
+    for(frames = 0; frames < 10; frames++){
+        for(i = 0; i < CONTADOR_LED; i++){
+            switch(alternador){
+                case 0:
+                    if(i % 2 == 0){
+                        vetor[i] = 1;
+                    }else{
+                        vetor[i] = 0;
+                    }
+                    break;
+                case 1:
+                    if(i % 2 == 1){
+                        vetor[i] = 1;
+                    }else{
+                        vetor[i] = 0;
+                    }
+                    break;
+            }
+        }
+        for(i = 0; i < CONTADOR_LED; i++){
+            if(vetor[i] == 1){
+                atribuir_cor_ao_led(i, 0, 0, 0);
+            }else{
+                atribuir_cor_ao_led(i, 0, 0, 1);
+            }
+        }
+        alternador++;
+        if(alternador == 2)
+            alternador = 0;
+        escrever_no_buffer();
+        sleep_ms(500);
+    }
+}
+
+void animacao_horizontal(void){
+    int i, j, frames, alternador = 0;
+    uint vetor[CONTADOR_LED] = {
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0
+    };
+
+    for(frames = 0; frames < 10; frames++){
+        for(i = 0; i < 5; i++){
+            for(j = 0; j < 5; j++){
+                if(i % 2 == alternador){
+                    vetor[i * 5 + j] = 1;
+                }else{
+                    vetor[i * 5 + j] = 0;
+                }
+            }
+        }
+        alternador++;
+        if(alternador == 2)
+            alternador = 0;
+        for(i = 0; i < CONTADOR_LED; i++){
+            if(vetor[i] == 0){
+                atribuir_cor_ao_led(i, 1, 0, 1);
+            }else{
+                atribuir_cor_ao_led(i, 1, 1, 0);
+            }
+        }
+        escrever_no_buffer();
+        sleep_ms(500);
     }
 }
