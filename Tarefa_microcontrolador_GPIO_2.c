@@ -28,6 +28,9 @@ void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, co
 void limpar_o_buffer(void);
 void escrever_no_buffer(void);
 
+void animacao_seta_para_direita(void);
+void animacao_seta_para_esquerda(void);
+
 //-----FUNÇÃO PRINCIPAL-----
 int main(void){
 	// Inicializa matriz de LEDs NeoPixel.
@@ -92,3 +95,208 @@ void escrever_no_buffer(void){
 }
 
 // ADICIONAR AS NOVAS FUNÇÕES A PARTIR DAQUI E INCLUIR O PROTÓTIPO.
+void animacao_seta_para_direita(void){
+    uint vetor[CONTADOR_LED], i, j, frames = 10;
+
+    for(i = 0; i < CONTADOR_LED; i++)
+        vetor[i] = 0;
+    
+    for(i = 0; i < frames; i++){
+        switch(i){
+            case 1:
+                // Liga
+                vetor[14] = 1;
+                break;
+            case 2:
+                // Liga
+                vetor[5] = 1;
+                vetor[13] = 1;
+                vetor[15] = 1;
+                break;
+            case 3:
+                // Liga
+                vetor[4] = 1;
+                vetor[6] = 1;
+                vetor[12] = 1;
+                vetor[16] = 1;
+                vetor[24] = 1;
+                // Desliga
+                vetor[14] = 0;
+                break;
+            case 4:
+                // Liga
+                vetor[3] = 1;
+                vetor[7] = 1;
+                vetor[11] = 1;
+                vetor[17] = 1;
+                vetor[23] = 1;
+                // Desliga
+                vetor[5] = 0;
+                vetor[13] = 0;
+                vetor[15] = 0;
+                break;
+            case 5:
+                // Liga
+                vetor[2] = 1;
+                vetor[8] = 1;
+                vetor[10] = 1;
+                vetor[18] = 1;
+                vetor[22] = 1;
+                // Desliga
+                vetor[4] = 0;
+                vetor[6] = 0;
+                vetor[12] = 0;
+                vetor[16] = 0;
+                vetor[24] = 0;
+                break;
+            case 6:
+                // Liga
+                vetor[1] = 1;
+                vetor[9] = 1;
+                vetor[19] = 1;
+                vetor[21] = 1;
+                // Desliga
+                vetor[3] = 0;
+                vetor[7] = 0;
+                vetor[11] = 0;
+                vetor[17] = 0;
+                vetor[23] = 0;
+                break;
+            case 7:
+                // Liga
+                vetor[0] = 1;
+                vetor[20] = 1;
+                // Desliga
+                vetor[2] = 0;
+                vetor[8] = 0;
+                vetor[10] = 0;
+                vetor[18] = 0;
+                vetor[22] = 0;
+                break;
+            case 8:
+                // Desliga
+                vetor[1] = 0;
+                vetor[9] = 0;
+                vetor[19] = 0;
+                vetor[21] = 0;
+                break;
+            case 9:
+                // Desliga
+                vetor[0] = 0;
+                vetor[20] = 0;
+                break;
+        }
+        for(j = 0; j < CONTADOR_LED; j++){
+            if(vetor[j] == 0){
+                atribuir_cor_ao_led(j, 0, 0, 0);
+            }else{
+                atribuir_cor_ao_led(j, 0, 0, 1);
+            }
+        }
+        escrever_no_buffer();
+        sleep_ms(100);
+    }
+}
+
+void animacao_seta_para_esquerda(void){
+    uint vetor[CONTADOR_LED], i, j, frames = 10;
+
+    for(i = 0; i < CONTADOR_LED; i++)
+        vetor[i] = 0;
+    
+    for(i = 0; i < frames; i++){
+        switch(i){
+            case 1:
+                // Liga
+                vetor[10] = 1;
+                break;
+            case 2:
+                // Liga
+                vetor[9] = 1;
+                vetor[11] = 1;
+                vetor[19] = 1;
+                break;
+            case 3:
+                // Liga
+                vetor[0] = 1;
+                vetor[8] = 1;
+                vetor[12] = 1;
+                vetor[18] = 1;
+                vetor[20] = 1;
+                // Desliga
+                vetor[10] = 0;
+                break;
+            case 4:
+                // Liga
+                vetor[1] = 1;
+                vetor[7] = 1;
+                vetor[13] = 1;
+                vetor[17] = 1;
+                vetor[21] = 1;
+                // Desliga
+                vetor[9] = 0;
+                vetor[11] = 0;
+                vetor[19] = 0;
+                break;
+            case 5:
+                // Liga
+                vetor[2] = 1;
+                vetor[6] = 1;
+                vetor[14] = 1;
+                vetor[16] = 1;
+                vetor[22] = 1;
+                // Desliga
+                vetor[0] = 0;
+                vetor[8] = 0;
+                vetor[12] = 0;
+                vetor[18] = 0;
+                vetor[20] = 0;
+                break;
+            case 6:
+                // Liga
+                vetor[3] = 1;
+                vetor[5] = 1;
+                vetor[15] = 1;
+                vetor[23] = 1;
+                // Desliga
+                vetor[1] = 0;
+                vetor[7] = 0;
+                vetor[13] = 0;
+                vetor[17] = 0;
+                vetor[21] = 0;
+                break;
+            case 7:
+                // Liga
+                vetor[4] = 1;
+                vetor[24] = 1;
+                // Desliga
+                vetor[2] = 0;
+                vetor[6] = 0;
+                vetor[14] = 0;
+                vetor[16] = 0;
+                vetor[22] = 0;
+                break;
+            case 8:
+                // Desliga
+                vetor[3] = 0;
+                vetor[5] = 0;
+                vetor[15] = 0;
+                vetor[23] = 0;
+                break;
+            case 9:
+                // Desliga
+                vetor[4] = 0;
+                vetor[24] = 0;
+                break;
+        }
+        for(j = 0; j < CONTADOR_LED; j++){
+            if(vetor[j] == 0){
+                atribuir_cor_ao_led(j, 0, 0, 0);
+            }else{
+                atribuir_cor_ao_led(j, 1, 0, 0);
+            }
+        }
+        escrever_no_buffer();
+        sleep_ms(100);
+    }
+}
