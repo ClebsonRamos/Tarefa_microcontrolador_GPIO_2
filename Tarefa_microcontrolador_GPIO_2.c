@@ -94,9 +94,26 @@ int main(void){
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
 	
 	limpar_o_buffer();
-    desenho('A');
-    sleep_ms(10000);
-    desenho('B');
+    for(int i = 1; i < 4; i++){
+    switch (i)
+    {
+    case 1:
+        limpar_o_buffer();
+        desenho('A');
+        break;
+    case 2: 
+        limpar_o_buffer();
+        desenho('B');
+        break;
+    case 3: 
+        limpar_o_buffer();
+        desenho('C');
+    
+    default:
+        break;
+    }
+    sleep_ms(3000);
+    }
 	
 		
 	escrever_no_buffer(); // Escreve os dados nos LEDs.
