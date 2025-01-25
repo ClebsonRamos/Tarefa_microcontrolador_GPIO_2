@@ -54,14 +54,14 @@ int main(void)
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
 	intensidade = 170;
 	int tempo = 1000;
-	while(true){
+	
 		limpar_o_buffer();
-		desenho('0');
+		desenho('9');
 		escrever_no_buffer();
 		sleep_ms(300);
 		limpar_o_buffer();
 		sleep_ms(300);
-	}
+	
 	/*limpar_o_buffer();
 	desenho('2');
 	escrever_no_buffer();
@@ -181,7 +181,7 @@ void desenho(char letra)
 	
 	if (letra == '1')
 	{
-		matriz = matriz_1;
+		//matriz = matriz_1;
 	}
 	if (letra == '2')
 	{
