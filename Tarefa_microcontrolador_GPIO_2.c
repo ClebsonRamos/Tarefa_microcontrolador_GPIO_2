@@ -31,8 +31,6 @@ void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, co
 void limpar_o_buffer();
 void escrever_no_buffer();
 void desenho(char letra);
-void beep(int frequency)
-
 
 // ------MATRIZ-----
 
@@ -60,20 +58,23 @@ uint8_t intensidade = 255;
 int main(void){
 	// Inicializa matriz de LEDs NeoPixel.
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
-	// inicializacao_maquina_pio(PINO_BUZZER)
-	 
-   limpar_o_buffer();	
-	 desenho('A');
-	 escrever_no_buffer();
-	 sleep_ms(3000);
+	sleep_ms(5000);
+	limpar_o_buffer();
+	desenho('#');
+	sleep_ms(3000);
+	desenho('A');
+	sleep_ms(3000);
+	desenho('B');
 
-	 intensidade = 100;		
-   limpar_o_buffer();	
-	 desenho('A');
-	 escrever_no_buffer();
+	
+	
+		
+	escrever_no_buffer(); // Escreve os dados nos LEDs.
 
-
-
+	// A mágica acontece aqui :)
+	while (true){
+		
+	}
 	return 0;
 }
 
@@ -102,11 +103,6 @@ void inicializacao_maquina_pio(uint pino){
 		leds[i].B = 0;
 	}
 }
-
-
-
-// a função inicialar pwm precisa ser congigurada com o GPIO que vai ser ultilizado(led, ou buzzer) antes
-// frequencia deles é diferente e depois será configurada para uso
 
 // Atribui uma cor RGB a um LED.
 void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b, uint8_t intensidade) {
