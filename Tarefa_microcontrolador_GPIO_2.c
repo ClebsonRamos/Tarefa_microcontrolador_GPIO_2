@@ -3,7 +3,7 @@
 #include "hardware/pio.h"
 #include "hardware/clocks.h"
 #include "include/frames.c"
-#include "include/keyPad.c"
+#include "include/KeyPad.c"
 
 
 // Biblioteca gerada pelo arquivo .pio durante compilação.
@@ -58,8 +58,9 @@ void animar(int x, int y){
 uint8_t intensidade = 255; 
 //-----FUNÇÃO PRINCIPAL-----
 int main(void){
-	// Inicializa matriz de LEDs NeoPixel.
+	char tecla;
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
+	inicializacao_maquina_pio(PINO_BUZZER);
 	sleep_ms(5000);
 	limpar_o_buffer();
 	desenho('#');
@@ -75,11 +76,54 @@ int main(void){
 
 	// A mágica acontece aqui :)
 	while (true){
-		
+		 while (true) {
+       tecla = read_keypad();
+       if(tecla != '\0'){
+            switch(tecla){
+                case 'A':
+                    limpar_o_buffer();
+					escrever_no_buffer();
+                    break;
+                case 'B':
+				limpar_o_buffer();
+			    escrever_no_buffer();
+				for(int i=0;i<CONTADOR_LED;i++){
+						atribuir_cor_ao_led(i,0,0,1,255);
+						
+				}
+			    escrever_no_buffer();
+				break;	
+                case 'C':
+                limpar_o_buffer();
+			    escrever_no_buffer();
+				for(int i=0;i<CONTADOR_LED;i++){
+					atribuir_cor_ao_led(i,1,0,0,205); // 80% de intensidade branco
+				}
+			    escrever_no_buffer();
+				break;	
+                case 'D':
+                limpar_o_buffer();
+			    escrever_no_buffer();
+				for(int i=0;i<CONTADOR_LED;i++){
+					atribuir_cor_ao_led(i,0,1,0,128);	// 50% de intensidade branco
+				}
+			    escrever_no_buffer();
+				break;	
+                case '#':
+                    limpar_o_buffer();
+			    escrever_no_buffer();
+				for(int i=0;i<CONTADOR_LED;i++){
+						atribuir_cor_ao_led(i,1,1,1,52); // 20% de intensidade branco
+						
+				}
+			    escrever_no_buffer();
+				break;	
+            }
+       }
 	}
 	return 0;
 }
-
+}
 //-----FUNÇÕES COMPLEMENTARES-----
 // Inicializa a máquina PIO para controle da matriz de LEDs.
 void inicializacao_maquina_pio(uint pino){
@@ -94,6 +138,7 @@ void inicializacao_maquina_pio(uint pino){
 		maquina_pio = pio1;
 		variavel_maquina_de_estado = pio_claim_unused_sm(maquina_pio, true); // Se nenhuma máquina estiver livre, panic!
 	}
+
 
 	// Inicia programa na máquina PIO obtida.
 	ws2818b_program_init(maquina_pio, variavel_maquina_de_estado, programa_pio, pino, 800000.f);
@@ -158,7 +203,7 @@ void  desenho(char letra){
 	for(int x = 0; x < tamanho_matriz; x++){
 		for(int y = 0; y < tamanho_matriz; y++){
 			if(matriz[x][y] == 'R'){
-				atribuir_cor_ao_led(matrizint[x][y],255,0,0, intensidade);				
+				atribuir_cor_ao_led(matrizint[x][y],1,0,0, intensidade);				
 			}
 			if(matriz[x][y] == 'G'){
 				atribuir_cor_ao_led(matrizint[x][y],0,1,0, intensidade);
@@ -628,3 +673,4 @@ void beep(int frequency) {
         sleep_us(half_period); // Atraso de meio período
     }
 }
+
