@@ -62,9 +62,10 @@ int main(void){
 	limpar_o_buffer();
 	
 	intensidade = 100;
-	contador();
-	desenho('M');
-	escrever_no_buffer();
+	while(true){
+	corrida();
+	}
+	
 
 	// A mágica acontece aqui :)
 	while (true){
@@ -148,8 +149,24 @@ void  desenho(char letra){
 		if ( letra == '8'){
 			matriz = matriz_8;
 		}
-		if (letra == 'M'){
-		matriz = mario;
+		if ( letra == '9'){
+			matriz = matriz_9;
+		}
+		if ( letra == 'A'){
+			matriz = matriz_10;
+		}
+		if ( letra == 'B'){
+			matriz = matriz_11;
+		}
+		if ( letra == 'C'){
+			matriz = matriz_12;
+		}
+		
+
+	
+	
+		if ( letra == 'M'){
+			matriz = mario;
 		}
 
 
