@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = 'build/Tarefa_microcontrolador_GPIO_2.uf2'
+elf = 'build/Tarefa_microcontrolador_GPIO_2.elf'
