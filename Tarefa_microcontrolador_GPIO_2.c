@@ -3,6 +3,7 @@
 #include "hardware/pio.h"
 #include "hardware/clocks.h"
 #include "include/frames.c"
+#include "include/keyPad.c"
 
 
 // Biblioteca gerada pelo arquivo .pio durante compilação.
@@ -11,7 +12,8 @@
 // Definição do número de LEDs e pino.
 #define CONTADOR_LED 25
 #define PINO_MATRIZ_LED 7
-// #define PINO_BUZZER não sei a porta
+#define PINO_BUZZER 21
+
 // Definição de pixel GRB
 struct pixel_t {
 	uint8_t G, R, B; // Três valores de 8-bits compõem um pixel.
