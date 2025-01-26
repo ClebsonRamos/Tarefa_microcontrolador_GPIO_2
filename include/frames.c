@@ -11,6 +11,47 @@ w = brando
 
 */
 
+
+void contador(){
+  
+   
+  desenho('0');
+	escrever_no_buffer(); // Escreve os dados nos LEDs.
+	sleep_ms(1000);
+	limpar_o_buffer();
+	
+	desenho('1');
+	escrever_no_buffer(); // Escreve os dados nos LEDs.
+	sleep_ms(1000);
+	limpar_o_buffer();
+	
+	desenho('2');
+	escrever_no_buffer(); // Escreve os dados nos LEDs.
+	sleep_ms(1000);
+	limpar_o_buffer();
+
+	desenho('3');
+	escrever_no_buffer(); // Escreve os dados nos LEDs.
+	sleep_ms(1000);
+	limpar_o_buffer();
+	
+	desenho('4');
+	escrever_no_buffer(); // Escreve os dados nos LEDs.
+	sleep_ms(1000);
+	limpar_o_buffer();
+
+	desenho('5');
+	escrever_no_buffer(); // Escreve os dados nos LEDs.
+	sleep_ms(1000);
+	limpar_o_buffer();
+	
+	desenho('6');
+	escrever_no_buffer(); // Escreve os dados nos LEDs.
+	sleep_ms(1000);
+	limpar_o_buffer();
+  
+}
+
 char matriz_0[5][5]={
   {'*','Y','Y','Y','*'},
   {'*','Y','*','Y','*'},
@@ -85,6 +126,15 @@ char matriz_5[5][5]={
   {'G','C','C','C','G'},
   {'G','G','G','G','G'}
  };
+ 
+char mario[5][5]={
+  {'R','R','R','R','R'},
+  {'R','Y','Y','Y','Y'},
+  {'R','B','R','R','B'},
+  {'B','B','B','B','B'},
+  {'P','P','*','P','P'}
+};
+
 
 
 

@@ -47,8 +47,6 @@ uint matrizint[5][5] = {
     {4, 3, 2, 1, 0}
 };
 
-
-
 uint8_t intensidade = 255; 
 //-----FUNÇÃO PRINCIPAL-----
 int main(void){
@@ -62,39 +60,11 @@ int main(void){
 	
 	
 	limpar_o_buffer();
+	
 	intensidade = 100;
-	desenho('0');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(1000);
-	limpar_o_buffer();
-	
-	desenho('1');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(1000);
-	limpar_o_buffer();
-	
-	desenho('2');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(1000);
-	limpar_o_buffer();
-
-	desenho('3');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(1000);
-	limpar_o_buffer();
-	
-	desenho('4');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(1000);
-	limpar_o_buffer();
-
-	desenho('5');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(1000);
-	limpar_o_buffer();
-
-	desenho('6');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
+	contador();
+	desenho('M');
+	escrever_no_buffer();
 
 	// A mágica acontece aqui :)
 	while (true){
@@ -178,6 +148,10 @@ void  desenho(char letra){
 		if ( letra == '8'){
 			matriz = matriz_8;
 		}
+		if (letra == 'M'){
+		matriz = mario;
+		}
+
 
 	for(int x = 0; x < tamanho_matriz; x++){
 		for(int y = 0; y < tamanho_matriz; y++){
