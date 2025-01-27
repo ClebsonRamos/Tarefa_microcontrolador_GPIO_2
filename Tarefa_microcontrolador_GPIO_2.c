@@ -35,6 +35,7 @@ void limpar_o_buffer();
 void escrever_no_buffer();
 void desenho(char letra);
 void beep(int frequency);
+void circuloJoaoLucas();
 
 // ------MATRIZ-----
 
@@ -61,13 +62,14 @@ int main(void){
 	limpar_o_buffer();
 	
 	intensidade = 100;
+  /*
 	while(true){
 	corrida();
 	}
+  */
 	
-
 	// A mágica acontece aqui :)
-	while (true){
+	
 		 while (true) {
        tecla = read_keypad();
        if(tecla != '\0'){
@@ -109,13 +111,16 @@ int main(void){
 						
 				}
 			    escrever_no_buffer();
-				break;	
+				break;
+                case '1':
+                circuloJoaoLucas();
+                break;	
             }
        }
 	}
 	return 0;
 }
-}
+
 //-----FUNÇÕES COMPLEMENTARES-----
 // Inicializa a máquina PIO para controle da matriz de LEDs.
 void inicializacao_maquina_pio(uint pino){
@@ -234,7 +239,8 @@ void  desenho(char letra){
 				atribuir_cor_ao_led(matrizint[x][y],0,255,255, intensidade);
 			}  
 			if(matriz[x][y] == 'W'){
-				atribuir_cor_ao_led(matrizint[x][y],255,255,255, intensidade);			}  
+				atribuir_cor_ao_led(matrizint[x][y],255,255,255, intensidade);
+      }
 
 			if(matriz[x][y] == '*'){
 				atribuir_cor_ao_led(matrizint[x][y],0,0,0, intensidade);
@@ -242,6 +248,7 @@ void  desenho(char letra){
 		}			
 	}
 }
+
 
 // Escreve os dados do buffer nos LEDs.
 void escrever_no_buffer(){
@@ -460,7 +467,110 @@ void animacao_seta_para_esquerda(void){
         sleep_ms(100);
     }
 }
+void circuloJoaoLucas(){
+    uint vetor[CONTADOR_LED], i, j, frames = 6, intensidade = 255;
 
+    for(i = 0; i < CONTADOR_LED; i++)
+        vetor[i] = 0;
+    
+    for(i = 0; i < frames; i++){
+        switch(i){
+            case 1:
+                beep(1000);
+                vetor[12] = 2;
+                break;
+            case 2:
+              beep(2000);
+                vetor[12] = 0;
+
+                vetor[6] = 2;
+                vetor[7] = 2;
+                vetor[8] = 2;
+                vetor[11] = 2;
+                vetor[18] = 2;
+                vetor[17] = 2;
+                vetor[16] = 2;
+                vetor[13] = 2;
+                break;
+                case 3:
+                 beep(3000);
+                vetor[6] = 0;
+                vetor[7] = 0;
+                vetor[8] = 0;
+                vetor[11] = 0;
+                vetor[18] = 0;
+                vetor[17] = 0;
+                vetor[16] = 0;
+                vetor[13] = 0;
+
+                vetor[4] = 2;
+                vetor[5] = 2;
+                vetor[14] = 2;
+                vetor[15] = 2;
+                vetor[24] = 2;
+                vetor[23] = 2;
+                vetor[22] = 2;
+                vetor[21] = 2;
+                vetor[20] = 2;
+                vetor[19] = 2;
+                vetor[10] = 2;
+                vetor[9] = 2;
+                vetor[0] = 2;
+                vetor[1] = 2;
+                vetor[2] = 2;
+                vetor[3] = 2;
+                
+                
+                break;
+                case 4:
+                 beep(3000);
+                vetor[4] = 0;
+                vetor[5] = 0;
+                vetor[14] = 0;
+                vetor[15] = 0;
+                vetor[24] = 0;
+                vetor[23] = 0;
+                vetor[22] = 0;
+                vetor[21] = 0;
+                vetor[20] = 0;
+                vetor[19] = 0;
+                vetor[10] = 0;
+                vetor[9] = 0;
+                vetor[0] = 0;
+                vetor[1] = 0;
+                vetor[2] = 0;
+                vetor[3] = 0;
+
+                vetor[6] = 2;
+                vetor[7] = 2;
+                vetor[8] = 2;
+                vetor[11] = 2;
+                vetor[18] = 2;
+                vetor[17] = 2;
+                vetor[16] = 2;
+                vetor[13] = 2;
+                break;
+                case 5:
+                 beep(2000);
+                vetor[0] = 2;
+                vetor[0] = 2;
+                vetor[0] = 2;
+                vetor[0] = 2;
+                vetor[0] = 2;
+                vetor[0] = 2;
+                vetor[0] = 2;
+                vetor[0] = 2;
+
+                vetor[12] = 2;
+                break;
+                case 6:
+                beep(1000);
+                vetor[12]=0;
+        }
+        escrever_no_buffer();
+        sleep_ms(400);
+        }
+}
 void animacao_boneco(void){
     int i, frames, intensidade = 255;
     uint vetor[CONTADOR_LED] = {
