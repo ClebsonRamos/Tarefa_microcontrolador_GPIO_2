@@ -225,18 +225,7 @@ void desenho(char letra){
     if ( letra == '9'){
         matriz = matriz_9;
     }
-    if ( letra == 'A'){
-        matriz = matriz_10;
-    }
-    if ( letra == 'B'){
-        matriz = matriz_11;
-    }
-    if ( letra == 'C'){
-        matriz = matriz_12;
-    }
-    if ( letra == 'M'){
-        matriz = mario;
-    }
+  
 
 
 	for(int x = 0; x < tamanho_matriz; x++){
