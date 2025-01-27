@@ -3,7 +3,7 @@
 #include "hardware/pio.h"
 #include "hardware/clocks.h"
 #include "include/frames.c"
-#include "include/KeyPad.c"
+#include "include/keyPad.c"
 
 
 // Biblioteca gerada pelo arquivo .pio durante compilação.
@@ -31,9 +31,6 @@ uint variavel_maquina_de_estado;
 //-----PROTÓTIPOS-----
 void inicializacao_maquina_pio(uint pino);
 void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b, uint8_t intensidade);
-void limpar_o_buffer();
-void escrever_no_buffer();
-void desenho(char letra);
 void beep(int frequency);
 void circuloJoaoLucas();
 
@@ -59,66 +56,67 @@ int main(void){
 	gpio_init(PINO_BUZZER_B);
 	gpio_set_dir(PINO_BUZZER_B, GPIO_OUT);
 	
+    // inicializa teclado
+	keypad_init();
+
 	limpar_o_buffer();
 	
 	intensidade = 100;
-  /*
+    /*
 	while(true){
-	corrida();
+	    corrida();
 	}
-  */
+    */
 	
 	// A mágica acontece aqui :)
-	
-		 while (true) {
-       tecla = read_keypad();
-       if(tecla != '\0'){
+
+	while (true) {
+        tecla = read_keypad();
+        if(tecla != '\0'){
             switch(tecla){
                 case 'A':
                     limpar_o_buffer();
 					escrever_no_buffer();
                     break;
                 case 'B':
-				limpar_o_buffer();
-			    escrever_no_buffer();
-				for(int i=0;i<CONTADOR_LED;i++){
-						atribuir_cor_ao_led(i,0,0,1,255);
-						
-				}
-			    escrever_no_buffer();
-				break;	
+                    limpar_o_buffer();
+                    escrever_no_buffer();
+                    for(int i=0;i<CONTADOR_LED;i++){
+                        atribuir_cor_ao_led(i,0,0,1,255);
+                    }
+                    escrever_no_buffer();
+                    break;
                 case 'C':
-                limpar_o_buffer();
-			    escrever_no_buffer();
-				for(int i=0;i<CONTADOR_LED;i++){
-					atribuir_cor_ao_led(i,1,0,0,205); // 80% de intensidade branco
-				}
-			    escrever_no_buffer();
-				break;	
+                    limpar_o_buffer();
+                    escrever_no_buffer();
+                    for (int i = 0; i < CONTADOR_LED; i++){
+                        atribuir_cor_ao_led(i, 1, 0, 0, 205); // 80% de intensidade branco
+                    }
+                    escrever_no_buffer();
+                    break;
                 case 'D':
-                limpar_o_buffer();
-			    escrever_no_buffer();
-				for(int i=0;i<CONTADOR_LED;i++){
-					atribuir_cor_ao_led(i,0,1,0,128);	// 50% de intensidade branco
-				}
-			    escrever_no_buffer();
-				break;	
+                    limpar_o_buffer();
+                    escrever_no_buffer();
+                    for (int i = 0; i < CONTADOR_LED; i++){
+                        atribuir_cor_ao_led(i, 0, 1, 0, 128); // 50% de intensidade branco
+                    }
+                    escrever_no_buffer();
+                    break;
                 case '#':
                     limpar_o_buffer();
-			    escrever_no_buffer();
-				for(int i=0;i<CONTADOR_LED;i++){
-						atribuir_cor_ao_led(i,1,1,1,52); // 20% de intensidade branco
-						
-				}
-			    escrever_no_buffer();
-				break;
+                    escrever_no_buffer();
+                    for (int i = 0; i < CONTADOR_LED; i++){
+                        atribuir_cor_ao_led(i, 1, 1, 1, 52); // 20% de intensidade branco
+                    }
+                    escrever_no_buffer();
+                    break;
                 case '1':
-                circuloJoaoLucas();
-                break;	
+                    circuloJoaoLucas();
+                    break;
             }
-       }
-	}
-	return 0;
+        }
+    }
+    return 0;
 }
 
 //-----FUNÇÕES COMPLEMENTARES-----
@@ -168,7 +166,7 @@ void limpar_o_buffer(){
 	}			
 }
 
-void  desenho(char letra){
+void desenho(char letra){
 	char (*matriz)[5];		
 		if ( letra == '0'){
 			matriz = matriz_0;

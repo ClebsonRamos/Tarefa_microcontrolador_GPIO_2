@@ -3,4 +3,9 @@
 
 void contador();
 
+void limpar_o_buffer();
+
+void escrever_no_buffer();
+
+void desenho(char letra);
 #endif
