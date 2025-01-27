@@ -31,8 +31,15 @@ uint variavel_maquina_de_estado;
 void inicializacao_maquina_pio(uint pino);
 void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b, uint8_t intensidade);
 void beep(int frequency);
-void circuloJoaoLucas();
+void explosao_JoaoLucas();
 void animacao_estrela();
+void animacao_seta_para_direita();
+void animacao_seta_para_esquerda();
+void animacao_boneco();
+void animacao_horizontal();
+void animacao_coracao();
+void animacao_diagonal();
+void animacao_horizontal();
 // ------MATRIZ-----
 
 int tamanho_matriz = 5;
@@ -45,7 +52,8 @@ uint matrizint[5][5] = {
     {4, 3, 2, 1, 0}
 };
 
-uint8_t intensidade = 255; 
+uint8_t _intensidade_ = 255; 
+
 //-----FUNÇÃO PRINCIPAL-----
 int main(void){
 	char tecla;
@@ -60,39 +68,28 @@ int main(void){
 
 	limpar_o_buffer();
 	
-	intensidade = 100;
-    /*
-	while(true){
-	    corrida();
-	}
-    */
+	_intensidade_ = 100;
 	
 	// A mágica acontece aqui :)
-
 	while (true) {
         tecla = read_keypad();
         if(tecla != '\0'){
             switch(tecla){
                 case 'A':
                     limpar_o_buffer();
-                    for(int i=0;i<CONTADOR_LED;i++){
-                        atribuir_cor_ao_led(i,0,0,0,255);
-                    }
-					          escrever_no_buffer();
+                    escrever_no_buffer();
                     break;
                 case 'B':
                     limpar_o_buffer();
-                
                     for(int i=0;i<CONTADOR_LED;i++){
-                        atribuir_cor_ao_led(i,0,0,255,255); //100%intensidade azul
-
+                        atribuir_cor_ao_led(i, 0, 0, 1, 255); //100% intensidade azul
                     }
                     escrever_no_buffer();
                     break;
                 case 'C':
                     limpar_o_buffer();
                     for (int i = 0; i < CONTADOR_LED; i++){
-                        atribuir_cor_ao_led(i, 255, 0, 0, 205); // 80% de intensidade vermelho
+                        atribuir_cor_ao_led(i, 1, 0, 0, 205); // 80% de intensidade vermelho
                     }
                     escrever_no_buffer();
                     break;
@@ -100,7 +97,7 @@ int main(void){
                     limpar_o_buffer();
                     escrever_no_buffer();
                     for (int i = 0; i < CONTADOR_LED; i++){
-                        atribuir_cor_ao_led(i, 0, 255, 0, 127); // 50% de intensidade verde
+                        atribuir_cor_ao_led(i, 0, 1, 0, 127); // 50% de intensidade verde
                     }
                     escrever_no_buffer();
                     break;
@@ -108,7 +105,7 @@ int main(void){
                     limpar_o_buffer();
                     escrever_no_buffer();
                     for (int i = 0; i < CONTADOR_LED; i++){
-                        atribuir_cor_ao_led(i, 255, 255, 255, 52); // 20% de intensidade branco
+                        atribuir_cor_ao_led(i, 1, 1, 1, 52); // 20% de intensidade branco
                     }
                     escrever_no_buffer();
                     break;
@@ -118,8 +115,30 @@ int main(void){
                 case '2':
                     animacao_estrela();
                     break;
-                case '2':
-                    animacao_estrela();
+                case '3':
+                    animacao_seta_para_direita();
+                    break;
+                case '4':
+                    animacao_seta_para_esquerda();
+                    break;
+                case '5':
+                    animacao_boneco();
+                    break;
+                case '6':
+                    animacao_coracao();
+                    break;
+                case '7':
+                    animacao_diagonal();
+                    break;
+                case '8':
+                    animacao_horizontal();
+                    break;
+                case '9':
+                    char vetor_char[14] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'M'};
+                    for(int i = 0; i < 14; i++)
+                        desenho(vetor_char[i]);
+                    break;
+                case '0':
                     break;
             }
         }
@@ -161,97 +180,95 @@ void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, co
     if (intensidade < 0) intensidade = 0;
 
     // Ajusta os valores de RGB conforme a intensidade escolhida
-    leds[indice].R = (r * intensidade) / 255;
-    leds[indice].G = (g * intensidade) / 255;
-    leds[indice].B = (b * intensidade) / 255;
+    leds[indice].R = (r * intensidade);
+    leds[indice].G = (g * intensidade);
+    leds[indice].B = (b * intensidade);
 }
 
 
 // Limpa o buffer de pixels.
 void limpar_o_buffer(){	
 	for (uint i = 0; i < CONTADOR_LED; ++i){
-	    atribuir_cor_ao_led(i,0,0,0, 0);
+	    atribuir_cor_ao_led(i,0,0,0,0);
 	}			
 }
 
 void desenho(char letra){
 	char (*matriz)[5];		
-		if ( letra == '0'){
-			matriz = matriz_0;
-		}
-		if ( letra == '1'){
-			matriz = matriz_1;
-		}
-		if ( letra == '2'){
-			matriz = matriz_2;
-		}
-		if ( letra == '3'){
-			matriz = matriz_3;
-		}
-		if ( letra == '4'){
-			matriz = matriz_4;
-		}
-		if ( letra == '5'){
-			matriz = matriz_5;
-		}
-		if ( letra == '6'){
-			matriz = matriz_6;
-		}
-		if ( letra == '7'){
-			matriz = matriz_7;
-		}
-		if ( letra == '8'){
-			matriz = matriz_8;
-		}
-		if ( letra == '9'){
-			matriz = matriz_9;
-		}
-		if ( letra == 'A'){
-			matriz = matriz_10;
-		}
-		if ( letra == 'B'){
-			matriz = matriz_11;
-		}
-		if ( letra == 'C'){
-			matriz = matriz_12;
-		}
-		
-
-	
-	
-		if ( letra == 'M'){
-			matriz = mario;
-		}
+    if ( letra == '0'){
+        matriz = matriz_0;
+    }
+    if ( letra == '1'){
+        matriz = matriz_1;
+    }
+    if ( letra == '2'){
+        matriz = matriz_2;
+    }
+    if ( letra == '3'){
+        matriz = matriz_3;
+    }
+    if ( letra == '4'){
+        matriz = matriz_4;
+    }
+    if ( letra == '5'){
+        matriz = matriz_5;
+    }
+    if ( letra == '6'){
+        matriz = matriz_6;
+    }
+    if ( letra == '7'){
+        matriz = matriz_7;
+    }
+    if ( letra == '8'){
+        matriz = matriz_8;
+    }
+    if ( letra == '9'){
+        matriz = matriz_9;
+    }
+    if ( letra == 'A'){
+        matriz = matriz_10;
+    }
+    if ( letra == 'B'){
+        matriz = matriz_11;
+    }
+    if ( letra == 'C'){
+        matriz = matriz_12;
+    }
+    if ( letra == 'M'){
+        matriz = mario;
+    }
 
 
 	for(int x = 0; x < tamanho_matriz; x++){
 		for(int y = 0; y < tamanho_matriz; y++){
 			if(matriz[x][y] == 'R'){
-				atribuir_cor_ao_led(matrizint[x][y],255,0,0, intensidade);				
+				atribuir_cor_ao_led(matrizint[x][y],1,0,0, _intensidade_);				
 			}
 			if(matriz[x][y] == 'G'){
-				atribuir_cor_ao_led(matrizint[x][y],0,255,0, intensidade);
+				atribuir_cor_ao_led(matrizint[x][y],0,1,0, _intensidade_);
 			}
 			if(matriz[x][y] == 'B'){
-				atribuir_cor_ao_led(matrizint[x][y],0,0,255, intensidade);
+				atribuir_cor_ao_led(matrizint[x][y],0,0,1, _intensidade_);
 			}  
 			if(matriz[x][y] == 'Y'){
-				atribuir_cor_ao_led(matrizint[x][y],255,255,0, intensidade);
+				atribuir_cor_ao_led(matrizint[x][y],1,1,0, _intensidade_);
 			}  
 			if(matriz[x][y] == 'P'){
-				atribuir_cor_ao_led(matrizint[x][y],255,0,255, intensidade);
+				atribuir_cor_ao_led(matrizint[x][y],1,0,1, _intensidade_);
 			}  
 			if(matriz[x][y] == 'C'){
-				atribuir_cor_ao_led(matrizint[x][y],0,255,255, intensidade);
+				atribuir_cor_ao_led(matrizint[x][y],0,1,1, _intensidade_);
 			}  
 			if(matriz[x][y] == 'W'){
-				atribuir_cor_ao_led(matrizint[x][y],255,255,255, intensidade);
-      }
-
+				atribuir_cor_ao_led(matrizint[x][y],1,1,1, _intensidade_);
+            }
 			if(matriz[x][y] == '*'){
-				atribuir_cor_ao_led(matrizint[x][y],0,0,0, intensidade);
+				atribuir_cor_ao_led(matrizint[x][y],0,0,0, _intensidade_);
 			} 
-		}			
+		}
+        // Atualiza a matriz de LEDs e espera um tempo antes de mudar a cor
+        escrever_no_buffer();
+        sleep_ms(300); // 300ms entre as mudanças de cor
 	}
 }
 
@@ -473,6 +490,7 @@ void animacao_seta_para_esquerda(void){
         sleep_ms(100);
     }
 }
+
 void explosao_JoaoLucas(){
     int i, j, frames = 11, intensidade = 255;
     uint vetor[CONTADOR_LED] = {
@@ -626,16 +644,16 @@ void explosao_JoaoLucas(){
                     atribuir_cor_ao_led(j, 0, 0, 0, intensidade);
                     break;
                 case 1:
-                    atribuir_cor_ao_led(j, 255, 0, 0, intensidade);
+                    atribuir_cor_ao_led(j, 1, 0, 0, intensidade);
                     break;
                 case 2:
-                    atribuir_cor_ao_led(j, 0, 255, 0, intensidade);
+                    atribuir_cor_ao_led(j, 0, 1, 0, intensidade);
                     break;
                 case 3:
-                    atribuir_cor_ao_led(j, 0, 0, 255, intensidade);
+                    atribuir_cor_ao_led(j, 0, 0, 1, intensidade);
                     break;
                 case 4:
-                atribuir_cor_ao_led(j,255,255,0,intensidade);
+                atribuir_cor_ao_led(j,1,1,0,intensidade);
                 break;
             }
         }
@@ -643,6 +661,7 @@ void explosao_JoaoLucas(){
         sleep_ms(400);
         }
 }
+
 void animacao_boneco(void){
     int i, frames, intensidade = 255;
     uint vetor[CONTADOR_LED] = {
@@ -913,11 +932,11 @@ void animacao_arco_iris(void) {
         for (i = 0; i < CONTADOR_LED; i++) {
             // Alterna entre vermelho, verde e azul
             if (ciclo % 3 == 0) {
-                r = 255; g = 0; b = 0; // Vermelho
+                r = 1; g = 0; b = 0; // Vermelho
             } else if (ciclo % 3 == 1) {
-                r = 0; g = 255; b = 0; // Verde
+                r = 0; g = 1; b = 0; // Verde
             } else {
-                r = 0; g = 0; b = 255; // Azul
+                r = 0; g = 0; b = 1; // Azul
             }
 
             // Aplica a cor ao LED com intensidade definida
