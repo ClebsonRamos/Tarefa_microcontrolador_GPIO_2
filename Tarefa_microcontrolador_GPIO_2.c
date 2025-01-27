@@ -71,8 +71,8 @@ int main(void){
 	// A mágica acontece aqui :)
 	
 	while (true) {
-       tecla = read_keypad();
-       if(tecla != '\0'){
+        tecla = read_keypad();
+        if(tecla != '\0'){
             switch(tecla){
                 case 'A':
                     limpar_o_buffer();
