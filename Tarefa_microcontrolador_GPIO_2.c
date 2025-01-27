@@ -33,6 +33,7 @@ void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, co
 void beep(int frequency);
 void circuloJoaoLucas();
 void animacao_estrela();
+
 // ------MATRIZ-----
 
 int tamanho_matriz = 5;
@@ -85,12 +86,12 @@ int main(void){
                 
                     for(int i=0;i<CONTADOR_LED;i++){
                         atribuir_cor_ao_led(i,0,0,255,255); //100%intensidade azul
+
                     }
                     escrever_no_buffer();
                     break;
                 case 'C':
                     limpar_o_buffer();
-                    
                     for (int i = 0; i < CONTADOR_LED; i++){
                         atribuir_cor_ao_led(i, 255, 0, 0, 205); // 80% de intensidade vermelho
                     }
@@ -498,10 +499,9 @@ void explosao_JoaoLucas(){
                 vetor[17] = 3;
                 vetor[16] = 3;
                 vetor[13] = 3;
-                
                 break;
             case 3:
-                 beep(1000);
+                beep(1000);
                 vetor[6] = 0;
                 vetor[7] = 0;
                 vetor[8] = 0;
@@ -527,8 +527,6 @@ void explosao_JoaoLucas(){
                 vetor[1] = 3;
                 vetor[2] = 3;
                 vetor[3] = 3;
-                
-                
                 break;
             case 4:
                 beep(3000);
@@ -568,7 +566,6 @@ void explosao_JoaoLucas(){
                 vetor[17] = 0;
                 vetor[16] = 0;
                 vetor[13] = 0;
-
                 vetor[12] = 3;
                 break;
             case 6:
@@ -891,7 +888,7 @@ void animacao_estrela(void) {
 }
 
 void beep(int frequency) {
-    int period = 1000000 / frequency; // Período em microssegundos
+    int period = 1000000 / frequency; // Período em microssegundos 
     int half_period = period / 2;
 
     for (int i = 0; i < 10; i++) {  // Repete 10 vezes para o som
@@ -903,4 +900,34 @@ void beep(int frequency) {
         gpio_put(PINO_BUZZER_B, 0); // Desativa o buzzer
         sleep_us(half_period); // Atraso de meio período
     }
+}
+
+void animacao_arco_iris(void) {
+    uint8_t r, g, b; // Variáveis para as cores RGB
+    int i, ciclo, intensidade = 128; // Intensidade de 50%
+    int frames = 10; // Quantidade de ciclos de animação
+
+    for (ciclo = 0; ciclo < frames; ciclo++) {
+        for (i = 0; i < CONTADOR_LED; i++) {
+            // Alterna entre vermelho, verde e azul
+            if (ciclo % 3 == 0) {
+                r = 255; g = 0; b = 0; // Vermelho
+            } else if (ciclo % 3 == 1) {
+                r = 0; g = 255; b = 0; // Verde
+            } else {
+                r = 0; g = 0; b = 255; // Azul
+            }
+
+            // Aplica a cor ao LED com intensidade definida
+            atribuir_cor_ao_led(i, r, g, b, intensidade);
+        }
+
+        // Atualiza a matriz de LEDs e espera um tempo antes de mudar a cor
+        escrever_no_buffer();
+        sleep_ms(300); // 300ms entre as mudanças de cor
+    }
+
+    // Limpa os LEDs ao final da animação
+    limpar_o_buffer();
+    escrever_no_buffer();
 }
