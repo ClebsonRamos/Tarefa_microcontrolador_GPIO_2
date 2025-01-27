@@ -33,7 +33,7 @@ void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, co
 void beep(int frequency);
 void circuloJoaoLucas();
 void animacao_estrela();
-void animacao_arco_iris(void);
+void animacao_arco_iris();
 // ------MATRIZ-----
 
 int tamanho_matriz = 5;
