@@ -216,7 +216,7 @@ void  desenho(char letra){
 	for(int x = 0; x < tamanho_matriz; x++){
 		for(int y = 0; y < tamanho_matriz; y++){
 			if(matriz[x][y] == 'R'){
-				atribuir_cor_ao_led(matrizint[x][y],1,0,0, intensidade);				
+				atribuir_cor_ao_led(matrizint[x][y],255,0,0, intensidade);				
 			}
 			if(matriz[x][y] == 'G'){
 				atribuir_cor_ao_led(matrizint[x][y],0,255,0, intensidade);
