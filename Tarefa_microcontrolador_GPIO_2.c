@@ -88,7 +88,7 @@ int main(void)
                     escrever_no_buffer();
                     for (int i = 0; i < CONTADOR_LED; i++)
                     {
-                        atribuir_cor_ao_led(i, 0, 0, 1, 255);
+                        atribuir_cor_ao_led(i, 0, 0, 255, 255);
                     }
                     escrever_no_buffer();
                     break;
