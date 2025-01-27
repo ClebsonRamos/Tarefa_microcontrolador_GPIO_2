@@ -61,7 +61,7 @@ int main(void){
 	
 	limpar_o_buffer();
 	
-	intensidade = 100;
+	intensidade = 60;
 	while(true){
 	corrida();
 	}
