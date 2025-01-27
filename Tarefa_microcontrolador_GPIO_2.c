@@ -33,7 +33,7 @@ void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, co
 void beep(int frequency);
 void circuloJoaoLucas();
 void animacao_estrela();
-void animacao_arco_iris();
+
 // ------MATRIZ-----
 
 int tamanho_matriz = 5;
@@ -76,21 +76,24 @@ int main(void){
             switch(tecla){
                 case 'A':
                     limpar_o_buffer();
+                    for(int i=0;i<CONTADOR_LED;i++){
+                        atribuir_cor_ao_led(i,0,0,0,255);
+                    }
 					          escrever_no_buffer();
                     break;
                 case 'B':
                     limpar_o_buffer();
-                    escrever_no_buffer();
+                
                     for(int i=0;i<CONTADOR_LED;i++){
-                        atribuir_cor_ao_led(i,0,0,1,255);
+                        atribuir_cor_ao_led(i,0,0,255,255); //100%intensidade azul
+
                     }
                     escrever_no_buffer();
                     break;
                 case 'C':
                     limpar_o_buffer();
-                    escrever_no_buffer();
                     for (int i = 0; i < CONTADOR_LED; i++){
-                        atribuir_cor_ao_led(i, 1, 0, 0, 205); // 80% de intensidade branco
+                        atribuir_cor_ao_led(i, 255, 0, 0, 205); // 80% de intensidade vermelho
                     }
                     escrever_no_buffer();
                     break;
@@ -98,7 +101,7 @@ int main(void){
                     limpar_o_buffer();
                     escrever_no_buffer();
                     for (int i = 0; i < CONTADOR_LED; i++){
-                        atribuir_cor_ao_led(i, 0, 1, 0, 128); // 50% de intensidade branco
+                        atribuir_cor_ao_led(i, 0, 255, 0, 127); // 50% de intensidade verde
                     }
                     escrever_no_buffer();
                     break;
@@ -106,20 +109,17 @@ int main(void){
                     limpar_o_buffer();
                     escrever_no_buffer();
                     for (int i = 0; i < CONTADOR_LED; i++){
-                        atribuir_cor_ao_led(i, 1, 1, 1, 52); // 20% de intensidade branco
+                        atribuir_cor_ao_led(i, 255, 255, 255, 52); // 20% de intensidade branco
                     }
                     escrever_no_buffer();
                     break;
                 case '1':
-                    circuloJoaoLucas();
+                    explosao_JoaoLucas();
                     break;
                 case '2':
                     animacao_estrela();
                     break;
-		case '3':
-		    animacao_arco_iris();  
-		    break;
-	    }
+            }
         }
     }
     return 0;
@@ -225,7 +225,7 @@ void desenho(char letra){
 	for(int x = 0; x < tamanho_matriz; x++){
 		for(int y = 0; y < tamanho_matriz; y++){
 			if(matriz[x][y] == 'R'){
-				atribuir_cor_ao_led(matrizint[x][y],1,0,0, intensidade);				
+				atribuir_cor_ao_led(matrizint[x][y],255,0,0, intensidade);				
 			}
 			if(matriz[x][y] == 'G'){
 				atribuir_cor_ao_led(matrizint[x][y],0,255,0, intensidade);
@@ -471,33 +471,37 @@ void animacao_seta_para_esquerda(void){
         sleep_ms(100);
     }
 }
-void circuloJoaoLucas(){
-    uint vetor[CONTADOR_LED], i, j, frames = 6, intensidade = 255;
-
-    for(i = 0; i < CONTADOR_LED; i++)
-        vetor[i] = 0;
-    
+void explosao_JoaoLucas(){
+    int i, j, frames = 11, intensidade = 255;
+    uint vetor[CONTADOR_LED] = {
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0
+    };
+    limpar_o_buffer();
     for(i = 0; i < frames; i++){
         switch(i){
             case 1:
-                beep(1000);
-                vetor[12] = 2;
+                beep(5000);
+                vetor[12] = 3;
                 break;
             case 2:
-              beep(2000);
+              beep(3000);
                 vetor[12] = 0;
 
-                vetor[6] = 2;
-                vetor[7] = 2;
-                vetor[8] = 2;
-                vetor[11] = 2;
-                vetor[18] = 2;
-                vetor[17] = 2;
-                vetor[16] = 2;
-                vetor[13] = 2;
+                vetor[6] = 3;
+                vetor[7] = 3;
+                vetor[8] = 3;
+                vetor[11] = 3;
+                vetor[18] = 3;
+                vetor[17] = 3;
+                vetor[16] = 3;
+                vetor[13] = 3;
                 break;
             case 3:
-                 beep(3000);
+                beep(1000);
                 vetor[6] = 0;
                 vetor[7] = 0;
                 vetor[8] = 0;
@@ -507,24 +511,22 @@ void circuloJoaoLucas(){
                 vetor[16] = 0;
                 vetor[13] = 0;
 
-                vetor[4] = 2;
-                vetor[5] = 2;
-                vetor[14] = 2;
-                vetor[15] = 2;
-                vetor[24] = 2;
-                vetor[23] = 2;
-                vetor[22] = 2;
-                vetor[21] = 2;
-                vetor[20] = 2;
-                vetor[19] = 2;
-                vetor[10] = 2;
-                vetor[9] = 2;
-                vetor[0] = 2;
-                vetor[1] = 2;
-                vetor[2] = 2;
-                vetor[3] = 2;
-                
-                
+                vetor[4] = 3;
+                vetor[5] = 3;
+                vetor[14] = 3;
+                vetor[15] = 3;
+                vetor[24] = 3;
+                vetor[23] = 3;
+                vetor[22] = 3;
+                vetor[21] = 3;
+                vetor[20] = 3;
+                vetor[19] = 3;
+                vetor[10] = 3;
+                vetor[9] = 3;
+                vetor[0] = 3;
+                vetor[1] = 3;
+                vetor[2] = 3;
+                vetor[3] = 3;
                 break;
             case 4:
                 beep(3000);
@@ -545,32 +547,95 @@ void circuloJoaoLucas(){
                 vetor[2] = 0;
                 vetor[3] = 0;
 
-                vetor[6] = 2;
-                vetor[7] = 2;
-                vetor[8] = 2;
-                vetor[11] = 2;
-                vetor[18] = 2;
-                vetor[17] = 2;
-                vetor[16] = 2;
-                vetor[13] = 2;
+                vetor[6] = 3;
+                vetor[7] = 3;
+                vetor[8] = 3;
+                vetor[11] = 3;
+                vetor[18] = 3;
+                vetor[17] = 3;
+                vetor[16] = 3;
+                vetor[13] = 3;
                 break;
             case 5:
-                beep(2000);
-                vetor[0] = 2;
-                vetor[0] = 2;
-                vetor[0] = 2;
-                vetor[0] = 2;
-                vetor[0] = 2;
-                vetor[0] = 2;
-                vetor[0] = 2;
-                vetor[0] = 2;
-
-                vetor[12] = 2;
+                beep(5000);
+                vetor[6] = 0;
+                vetor[7] = 0;
+                vetor[8] = 0;
+                vetor[11] = 0;
+                vetor[18] = 0;
+                vetor[17] = 0;
+                vetor[16] = 0;
+                vetor[13] = 0;
+                vetor[12] = 3;
                 break;
             case 6:
-                beep(1000);
                 vetor[12]=0;
                 break;
+            case 7:
+                beep(500);
+                vetor[12]=1;
+                break;
+            case 8:
+            beep(500);
+                vetor[6]=1;
+                vetor[16]=1;
+                vetor[8]=1;
+                vetor[18]=1;
+                vetor[13]=4;
+                vetor[17]=4;
+                vetor[11]=4;
+                vetor[7]=4;
+                break;
+            case 9:
+            beep(500);
+             vetor[24]=1;
+             vetor[20]=1;
+             vetor[0]=1;
+             vetor[4]=1;
+             vetor[2]=4;
+             vetor[10]=4;
+             vetor[22]=4;
+             vetor[14]=4;
+             break;
+            case 10:
+                vetor[12]=0;
+                vetor[6]=0;
+                vetor[16]=0;
+                vetor[8]=0;
+                vetor[18]=0;
+                vetor[13]=0;
+                vetor[17]=0;
+                vetor[11]=0;
+                vetor[7]=0;
+                vetor[24]=0;
+                vetor[20]=0;
+                vetor[0]=0;
+                vetor[4]=0;
+                vetor[2]=0;
+                vetor[10]=0;
+                vetor[22]=0;
+                vetor[14]=0;  
+                break;  
+
+        }
+        for(j = 0; j < CONTADOR_LED; j++){
+         switch(vetor[j]){
+                case 0:
+                    atribuir_cor_ao_led(j, 0, 0, 0, intensidade);
+                    break;
+                case 1:
+                    atribuir_cor_ao_led(j, 255, 0, 0, intensidade);
+                    break;
+                case 2:
+                    atribuir_cor_ao_led(j, 0, 255, 0, intensidade);
+                    break;
+                case 3:
+                    atribuir_cor_ao_led(j, 0, 0, 255, intensidade);
+                    break;
+                case 4:
+                atribuir_cor_ao_led(j,255,255,0,intensidade);
+                break;
+            }
         }
         escrever_no_buffer();
         sleep_ms(400);
@@ -816,7 +881,6 @@ void animacao_estrela(void) {
         }
         escrever_no_buffer();
         sleep_ms(500);
-
         limpar_o_buffer();
         escrever_no_buffer();
         sleep_ms(500);
