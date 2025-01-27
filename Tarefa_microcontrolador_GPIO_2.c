@@ -5,7 +5,6 @@
 #include "include/frames.c"
 #include "include/keyPad.c"
 
-
 // Biblioteca gerada pelo arquivo .pio durante compilação.
 #include "ws2818b.pio.h"
 
@@ -33,7 +32,7 @@ void inicializacao_maquina_pio(uint pino);
 void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, const uint8_t b, uint8_t intensidade);
 void beep(int frequency);
 void circuloJoaoLucas();
-
+void animacao_estrela();
 // ------MATRIZ-----
 
 int tamanho_matriz = 5;
@@ -110,8 +109,15 @@ int main(void){
                     }
                     escrever_no_buffer();
                     break;
+                case '*':
+                    limpar_o_buffer();
+                    escrever_no_buffer();
+                    break;
                 case '1':
                     circuloJoaoLucas();
+                    break;
+                case '2':
+                    animacao_estrela();
                     break;
             }
         }
@@ -162,7 +168,7 @@ void atribuir_cor_ao_led(const uint indice, const uint8_t r, const uint8_t g, co
 // Limpa o buffer de pixels.
 void limpar_o_buffer(){	
 	for (uint i = 0; i < CONTADOR_LED; ++i){
-	atribuir_cor_ao_led(i,0,0,0, 255);
+	    atribuir_cor_ao_led(i,0,0,0, 0);
 	}			
 }
 
@@ -490,7 +496,7 @@ void circuloJoaoLucas(){
                 vetor[16] = 2;
                 vetor[13] = 2;
                 break;
-                case 3:
+            case 3:
                  beep(3000);
                 vetor[6] = 0;
                 vetor[7] = 0;
@@ -520,8 +526,8 @@ void circuloJoaoLucas(){
                 
                 
                 break;
-                case 4:
-                 beep(3000);
+            case 4:
+                beep(3000);
                 vetor[4] = 0;
                 vetor[5] = 0;
                 vetor[14] = 0;
@@ -548,8 +554,8 @@ void circuloJoaoLucas(){
                 vetor[16] = 2;
                 vetor[13] = 2;
                 break;
-                case 5:
-                 beep(2000);
+            case 5:
+                beep(2000);
                 vetor[0] = 2;
                 vetor[0] = 2;
                 vetor[0] = 2;
@@ -561,9 +567,10 @@ void circuloJoaoLucas(){
 
                 vetor[12] = 2;
                 break;
-                case 6:
+            case 6:
                 beep(1000);
                 vetor[12]=0;
+                break;
         }
         escrever_no_buffer();
         sleep_ms(400);
@@ -773,6 +780,44 @@ void animacao_horizontal(void){
                 atribuir_cor_ao_led(i, 1, 1, 0, intensidade);
             }
         }
+        escrever_no_buffer();
+        sleep_ms(500);
+    }
+}
+
+void animacao_estrela(void) {
+    int i, tam, frames, alternador = 0, intensidade = 255;
+    uint vetor[CONTADOR_LED] = {
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0
+    };
+    int indices0[] = {12};
+    int indices1[] = {7, 11, 12, 13, 17};
+    int indices2[] = {2, 7, 10, 11, 12, 13, 14, 17, 22};
+    int indices3[] = {2, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17, 18, 22};
+    int *indices_arr[] = {indices0, indices1, indices2, indices3, indices3, indices3, indices3, indices3}; 
+    int tam_arr[] = {1, 5, 9, 13, 13, 13, 13, 13};
+    
+    for(frames = 0; frames < 8; frames++){
+        tam = tam_arr[frames];
+        int *indices = indices_arr[frames];     
+        
+        for(i = 0; i < tam; i++){
+            vetor[indices[i]] = 3;
+        }
+
+        for(i = 0; i < CONTADOR_LED; i++){
+            if(vetor[i] == 3){
+                atribuir_cor_ao_led(i, 0, 0, 1, intensidade);
+            }
+        }
+        escrever_no_buffer();
+        sleep_ms(500);
+
+        limpar_o_buffer();
         escrever_no_buffer();
         sleep_ms(500);
     }
