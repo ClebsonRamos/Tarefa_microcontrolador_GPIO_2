@@ -40,6 +40,8 @@ void animacao_horizontal();
 void animacao_coracao();
 void animacao_diagonal();
 void contador_valter();
+void animacao_arco_iris();
+
 // ------MATRIZ-----
 
 int tamanho_matriz = 5;
@@ -134,9 +136,7 @@ int main(void){
                     contador_valter();
                     break;
                 case '9':
-                    char vetor_char[14] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'M'};
-                    for(int i = 0; i < 14; i++)
-                        desenho(vetor_char[i]);
+                    animacao_arco_iris();
                     break;
                 case '0':
                     break;
