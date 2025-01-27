@@ -75,7 +75,7 @@ int main(void){
             switch(tecla){
                 case 'A':
                     limpar_o_buffer();
-					escrever_no_buffer();
+					          escrever_no_buffer();
                     break;
                 case 'B':
                     limpar_o_buffer();
@@ -107,10 +107,6 @@ int main(void){
                     for (int i = 0; i < CONTADOR_LED; i++){
                         atribuir_cor_ao_led(i, 1, 1, 1, 52); // 20% de intensidade branco
                     }
-                    escrever_no_buffer();
-                    break;
-                case '*':
-                    limpar_o_buffer();
                     escrever_no_buffer();
                     break;
                 case '1':
