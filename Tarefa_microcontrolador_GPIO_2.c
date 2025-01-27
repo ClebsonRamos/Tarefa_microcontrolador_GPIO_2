@@ -62,14 +62,8 @@ int main(void){
 	limpar_o_buffer();
 	
 	intensidade = 100;
-    /*
-	while(true){
-	    corrida();
-	}
-    */
 	
 	// A mágica acontece aqui :)
-
 	while (true) {
         tecla = read_keypad();
         if(tecla != '\0'){
@@ -118,6 +112,31 @@ int main(void){
                     break;
                 case '2':
                     animacao_estrela();
+                    break;
+                case '3':
+                    animacao_seta_para_direita();
+                    break;
+                case '4':
+                    animacao_seta_para_esquerda();
+                    break;
+                case '5':
+                    animacao_boneco();
+                    break;
+                case '6':
+                    animacao_coracao();
+                    break;
+                case '7':
+                    animacao_diagonal();
+                    break;
+                case '8':
+                    animacao_horizontal();
+                    break;
+                case '9':
+                    char vetor_char[14] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'M'};
+                    for(int i = 0; i < 14; i++)
+                        desenho(vetor_char[i]);
+                    break;
+                case '0':
                     break;
             }
         }
@@ -471,6 +490,7 @@ void animacao_seta_para_esquerda(void){
         sleep_ms(100);
     }
 }
+
 void explosao_JoaoLucas(){
     int i, j, frames = 11, intensidade = 255;
     uint vetor[CONTADOR_LED] = {
@@ -641,6 +661,7 @@ void explosao_JoaoLucas(){
         sleep_ms(400);
         }
 }
+
 void animacao_boneco(void){
     int i, frames, intensidade = 255;
     uint vetor[CONTADOR_LED] = {
