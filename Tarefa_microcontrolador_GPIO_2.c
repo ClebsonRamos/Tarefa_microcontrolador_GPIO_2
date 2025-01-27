@@ -914,7 +914,7 @@ void beep(int frequency) {
 
 void animacao_arco_iris(void) {
     uint8_t r, g, b; // Variáveis para as cores RGB
-    int i, ciclo, intensidade = 128; // Intensidade de 50%
+    int i, ciclo, intensidade = 255; // Intensidade de 50%
     int frames = 10; // Quantidade de ciclos de animação
 
     for (ciclo = 0; ciclo < frames; ciclo++) {
