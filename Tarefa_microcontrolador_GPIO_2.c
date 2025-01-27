@@ -39,7 +39,7 @@ void animacao_boneco();
 void animacao_horizontal();
 void animacao_coracao();
 void animacao_diagonal();
-void animacao_horizontal();
+void contador_valter();
 // ------MATRIZ-----
 
 int tamanho_matriz = 5;
@@ -131,7 +131,7 @@ int main(void){
                     animacao_diagonal();
                     break;
                 case '8':
-                    animacao_horizontal();
+                    contador_valter();
                     break;
                 case '9':
                     char vetor_char[14] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'M'};
@@ -225,18 +225,7 @@ void desenho(char letra){
     if ( letra == '9'){
         matriz = matriz_9;
     }
-    if ( letra == 'A'){
-        matriz = matriz_10;
-    }
-    if ( letra == 'B'){
-        matriz = matriz_11;
-    }
-    if ( letra == 'C'){
-        matriz = matriz_12;
-    }
-    if ( letra == 'M'){
-        matriz = mario;
-    }
+  
 
 
 	for(int x = 0; x < tamanho_matriz; x++){
