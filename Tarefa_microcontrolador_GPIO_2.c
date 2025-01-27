@@ -12,7 +12,8 @@
 // Definição do número de LEDs e pino.
 #define CONTADOR_LED 25
 #define PINO_MATRIZ_LED 7
-#define PINO_BUZZER 21
+#define PINO_BUZZER_A 21
+#define PINO_BUZZER_B 10
 
 // Definição de pixel GRB
 struct pixel_t {
@@ -47,22 +48,26 @@ uint matrizint[5][5] = {
     {5, 6, 7, 8, 9},
     {4, 3, 2, 1, 0}
 };
-void animar(int x, int y){
-	char temp;
-	temp = boneco[x][y];
-	boneco[x][y] = '*';
-	x = x + 2;
-	boneco[x][y] = temp;
-
-}
-
 
 uint8_t intensidade = 255; 
 //-----FUNÇÃO PRINCIPAL-----
 int main(void){
 	char tecla;
 	inicializacao_maquina_pio(PINO_MATRIZ_LED);
-	inicializacao_maquina_pio(PINO_BUZZER);
+	gpio_init(PINO_BUZZER_A);
+	gpio_set_dir(PINO_BUZZER_A, GPIO_OUT);
+	gpio_init(PINO_BUZZER_B);
+	gpio_set_dir(PINO_BUZZER_B, GPIO_OUT);
+	
+	limpar_o_buffer();
+	
+	intensidade = 100;
+  /*
+	while(true){
+	corrida();
+	}
+  */
+	
 	// A mágica acontece aqui :)
 	
 		 while (true) {
@@ -164,33 +169,54 @@ void limpar_o_buffer(){
 }
 
 void  desenho(char letra){
-	char (*matriz)[5];
-	if (letra == 'A') {
-        matriz = matriz_A;
-    } 
-		if (letra == 'B') {
-        matriz = matriz_B;
-    }
-		if (letra == 'C') {
-        matriz = matriz_C;
-    }
-		if ( letra == 'M'){
-			matriz = matriz_MARIO;
-		}
-		if ( letra == '#'){
-			matriz = arcoiris;
-		}
-		if ( letra == '@'){
-			matriz = mosaico;
+	char (*matriz)[5];		
+		if ( letra == '0'){
+			matriz = matriz_0;
 		}
 		if ( letra == '1'){
 			matriz = matriz_1;
 		}
-		if (letra == '8')
-		{
-			matriz = boneco;
+		if ( letra == '2'){
+			matriz = matriz_2;
+		}
+		if ( letra == '3'){
+			matriz = matriz_3;
+		}
+		if ( letra == '4'){
+			matriz = matriz_4;
+		}
+		if ( letra == '5'){
+			matriz = matriz_5;
+		}
+		if ( letra == '6'){
+			matriz = matriz_6;
+		}
+		if ( letra == '7'){
+			matriz = matriz_7;
+		}
+		if ( letra == '8'){
+			matriz = matriz_8;
+		}
+		if ( letra == '9'){
+			matriz = matriz_9;
+		}
+		if ( letra == 'A'){
+			matriz = matriz_10;
+		}
+		if ( letra == 'B'){
+			matriz = matriz_11;
+		}
+		if ( letra == 'C'){
+			matriz = matriz_12;
 		}
 		
+
+	
+	
+		if ( letra == 'M'){
+			matriz = mario;
+		}
+
 
 	for(int x = 0; x < tamanho_matriz; x++){
 		for(int y = 0; y < tamanho_matriz; y++){
@@ -198,23 +224,23 @@ void  desenho(char letra){
 				atribuir_cor_ao_led(matrizint[x][y],1,0,0, intensidade);				
 			}
 			if(matriz[x][y] == 'G'){
-				atribuir_cor_ao_led(matrizint[x][y],0,1,0, intensidade);
+				atribuir_cor_ao_led(matrizint[x][y],0,255,0, intensidade);
 			}
 			if(matriz[x][y] == 'B'){
-				atribuir_cor_ao_led(matrizint[x][y],0,0,1, intensidade);
+				atribuir_cor_ao_led(matrizint[x][y],0,0,255, intensidade);
 			}  
 			if(matriz[x][y] == 'Y'){
-				atribuir_cor_ao_led(matrizint[x][y],1,1,0, intensidade);
+				atribuir_cor_ao_led(matrizint[x][y],255,255,0, intensidade);
 			}  
 			if(matriz[x][y] == 'P'){
-				atribuir_cor_ao_led(matrizint[x][y],1,0,1, intensidade);
+				atribuir_cor_ao_led(matrizint[x][y],255,0,255, intensidade);
 			}  
 			if(matriz[x][y] == 'C'){
-				atribuir_cor_ao_led(matrizint[x][y],0,1,1, intensidade);
+				atribuir_cor_ao_led(matrizint[x][y],0,255,255, intensidade);
 			}  
 			if(matriz[x][y] == 'W'){
-				atribuir_cor_ao_led(matrizint[x][y],1,1,1, intensidade);			
-                }  
+				atribuir_cor_ao_led(matrizint[x][y],255,255,255, intensidade);
+      }
 
 			if(matriz[x][y] == '*'){
 				atribuir_cor_ao_led(matrizint[x][y],0,0,0, intensidade);
@@ -759,11 +785,12 @@ void beep(int frequency) {
     int half_period = period / 2;
 
     for (int i = 0; i < 10; i++) {  // Repete 10 vezes para o som
-        gpio_put(PINO_BUZZER, 1); // Ativa o buzzer
+        gpio_put(PINO_BUZZER_A, 1); // Ativa o buzzer
+        gpio_put(PINO_BUZZER_B, 1); // Ativa o buzzer
         sleep_us(half_period); // Atraso de meio período
 
-        gpio_put(PINO_BUZZER, 0); // Desativa o buzzer
+        gpio_put(PINO_BUZZER_A, 0); // Desativa o buzzer
+        gpio_put(PINO_BUZZER_B, 0); // Desativa o buzzer
         sleep_us(half_period); // Atraso de meio período
     }
 }
-
