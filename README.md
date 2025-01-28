@@ -56,14 +56,16 @@ Implementar um sistema que controle animações em uma matriz de LEDs 5x5 com ba
 ## Estrutura do Repositório
 ```
 Tarefa_microcontrolador_GPIO_2/
-├── .vscode/                           # Função principal e inicialização
-├── incluir/                           # Adiciona suporte a PWM
+├── .vscode/                           # Pasta com arquivos de configuração do vscode
+├── include/                           # Pasta com interfaces e arquivo-fonte usados no código principal 
 ├── .gitignore                         # Arquivo de configuração do Git
-├── CMakeLists.txt                     # Adicionado função para framework CMake
+├── CMakeLists.txt                     # Organiza o processo de build CMake do projeto
 ├── README.md                          # Documentação do projeto
-├── Tarefa_microcontrolador_GPIO_2.c   # Código principal com mudanças sobre o pino
-├── pico_sdk_import.cmake              # Função principal e inicialização do SDK
-├── WS2818B.PIO                        # Função principal e inicialização
+├── Tarefa_microcontrolador_GPIO_2.c   # Código principal do projeto
+├── pico_sdk_import.cmake              # Script CMake para configuração e inicialização do SDK
+├── ws2818b.pio                        # Arquivo para controle dos LEDs WS2818B
+├── wokwi.toml                         # Arquivo de configuração do wokwi
+├── diagram.json                       # Arquivo de construção da simulação wokwi
 ```
 
 ## Funcionalidades
