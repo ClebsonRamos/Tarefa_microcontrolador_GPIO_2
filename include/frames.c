@@ -15,7 +15,7 @@ w = brando
 void contador_valter(){
   
   int time = 1000;
-  for(int i = 0; i < 9; i++){
+  for(int i = 0; i < 10; i++){
     
     desenho(i);
     escrever_no_buffer(); // Escreve os dados nos LEDs.

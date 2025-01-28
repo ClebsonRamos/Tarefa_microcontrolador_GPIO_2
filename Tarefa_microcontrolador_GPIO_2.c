@@ -69,7 +69,9 @@ int main(void){
 	keypad_init();
 
 	limpar_o_buffer();
-	
+	contador_valter();
+
+    escrever_no_buffer();
 	_intensidade_ = 100;
 	
 	// A mágica acontece aqui :)
@@ -193,36 +195,36 @@ void limpar_o_buffer(){
 	}			
 }
 
-void desenho(char letra){
+void desenho(int num){
 	char (*matriz)[5];		
-    if ( letra == '0'){
+    if ( num == 0){
         matriz = matriz_0;
     }
-    if ( letra == '1'){
+    if ( num == 1){
         matriz = matriz_1;
     }
-    if ( letra == '2'){
+    if ( num == 2){
         matriz = matriz_2;
     }
-    if ( letra == '3'){
+    if ( num == 3){
         matriz = matriz_3;
     }
-    if ( letra == '4'){
+    if ( num == 4){
         matriz = matriz_4;
     }
-    if ( letra == '5'){
+    if ( num == 5){
         matriz = matriz_5;
     }
-    if ( letra == '6'){
+    if ( num == 6){
         matriz = matriz_6;
     }
-    if ( letra == '7'){
+    if ( num == 7){
         matriz = matriz_7;
     }
-    if ( letra == '8'){
+    if ( num == 8){
         matriz = matriz_8;
     }
-    if ( letra == '9'){
+    if ( num == 9){
         matriz = matriz_9;
     }
   
