@@ -1,6 +1,6 @@
 # Projeto: Animações em Matriz de LEDs 5x5 com Raspberry Pi Pico W
 
-Este repositório contém a implementação de animações em uma matriz de LEDs 5x5 WS2812 utilizando o microcontrolador Raspberry Pi Pico W. O projeto foi desenvolvido com simulação no ambiente [Wokwi](https://wokwi.com/) e programação em C utilizando o Pico SDK.
+Este repositório contém a implementação de animações em uma matriz de LEDs 5x5 WS2818 utilizando o microcontrolador Raspberry Pi Pico W. O projeto foi desenvolvido com simulação no ambiente [Wokwi](https://wokwi.com/) e programação em C utilizando o Pico SDK.
 
 ## Índice
 
@@ -8,23 +8,15 @@ Este repositório contém a implementação de animações em uma matriz de LEDs
   - [Índice](#índice)
   - [Objetivo](#objetivo)
   - [Pré-requisitos](#pré-requisitos)
-  - [Configuração do Projeto](#configuração-do-projeto)
   - [Funcionalidades](#funcionalidades)
+  - [Configuração do Projeto](#configuração-do-projeto)
   - [Contribuição](#contribuição)
   - [Testes](#testes)
   - [Apresentação](#apresentação)
 
 ## Objetivo
 
-Implementar um sistema que controle animações em uma matriz de LEDs 5x5 com base em comandos de um teclado matricial 4x4, conforme especificado abaixo:
-
-- *Teclas numéricas (0 a 9):* Executam diferentes animações.
-- *Teclas especiais:*
-  - A: Desliga todos os LEDs.
-  - B: Liga todos os LEDs na cor *azul* com intensidade máxima.
-  - C: Liga todos os LEDs na cor *vermelha* com 80% de intensidade.
-  - D: Liga todos os LEDs na cor *verde* com 50% de intensidade.
-  - #: Liga todos os LEDs na cor *branca* com 20% de intensidade.
+Implementar um sistema que controle animações em uma matriz de LEDs 5x5 com base em comandos provenientes de um teclado matricial 4x4, utilizando o Raspberry Pi Pico W.
 
 ## Pré-requisitos
 
@@ -34,9 +26,24 @@ Implementar um sistema que controle animações em uma matriz de LEDs 5x5 com ba
   - Simulador Wokwi integrado ao VS Code
   - Git para controle de versão
 - *Componentes simulados:*
-  - Matriz de LEDs WS2812 5x5
+  - Matriz de LEDs WS2818 5x5
   - Teclado matricial 4x4
   - Buzzer 
+  
+## Funcionalidades
+1. *Modo de controle*: 
+   - Alteração do estado da matriz de LEDs com base no teclado matricial.
+2. *Animações personalizadas*:
+   - *Teclas numéricas (0 a 9):* Executam diferentes animações.
+   -  A tecla númerica "1" gera um sinal sonoro com o buzzer junto com a animação.
+   - *Teclas especiais:*
+     - A: Desliga todos os LEDs.
+     - B: Liga todos os LEDs na cor *azul* com intensidade máxima.
+     - C: Liga todos os LEDs na cor *vermelha* com 80% de intensidade.
+     - D: Liga todos os LEDs na cor *verde* com 50% de intensidade.
+     - #: Liga todos os LEDs na cor *branca* com 20% de intensidade.
+
+
 ## Configuração do Projeto
 
 1. Clone este repositório:
@@ -68,16 +75,6 @@ Tarefa_microcontrolador_GPIO_2/
 ├── diagram.json                       # Arquivo de construção da simulação wokwi
 ```
 
-## Funcionalidades
-
-1. *Animações personalizadas*:
-   - 9 animações diferentes controladas pelas teclas numéricas.
-   - Cada animação possui pelo menos 5 quadros com FPS definido.
-   - A tecla númerica "1" gera um sinal sonoro com o buzzer junto com a animação.
-
-2. *Modo de controle*:
-   - Alteração do estado da matriz de LEDs com base nas teclas especiais.
-
 ## Contribuição
 
 - Cada membro do grupo possui um branch específico para suas alterações.
@@ -94,4 +91,4 @@ Testes básicos foram implementados para verificar:
 ## Apresentação
 
 Confira o vídeo com a demonstração do projeto:  
-[...](#)
+[Tarefa Matriz LEDs - Unidade 4 - EmbarcaTech](#https://youtu.be/A1FXmnLnSuY)

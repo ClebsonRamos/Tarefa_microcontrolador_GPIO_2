@@ -68,7 +68,6 @@ int main(void){
     // inicializa teclado
 	keypad_init();
 	limpar_o_buffer();
-	_intensidade_ = 100;
 	
 	// A mágica acontece aqui :)
 	while (true) {
