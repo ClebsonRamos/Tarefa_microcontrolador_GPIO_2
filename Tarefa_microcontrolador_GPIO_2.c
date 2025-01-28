@@ -64,9 +64,9 @@ int main(void)
     limpar_o_buffer();
 
     intensidade = 60;
-    /*while(true){
-    corrida();
-    }*/
+   while(true){
+    corrida1();
+    }
 
     // A mágica acontece aqui :)
     while (true)

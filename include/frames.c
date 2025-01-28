@@ -11,77 +11,20 @@ w = brando
 
 */
 
-
+#define time 200
 void corrida(){
   
-  int time = 150;
-  desenho('0');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-	
-	desenho('1');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-	
-	desenho('2');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-	desenho('3');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-	
-	desenho('4');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-	desenho('5');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-	
-	desenho('6');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-	desenho('7');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-	desenho('8');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-	desenho('9');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-	desenho('A');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-	desenho('B');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-	desenho('C');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(50);
-	limpar_o_buffer();
   
-}
+  for(int i = 0; i < 9; i++){
+   char num = '0' + i;
+    desenho(num);
+	  escrever_no_buffer(); // Escreve os dados nos LEDs.
+	  sleep_ms(time);
+	  limpar_o_buffer();
 
+  }
+}
+  
   char matriz_0[5][5]={
   {'W','*','R','*','Y'},
   {'Y','*','*','*','W'},
