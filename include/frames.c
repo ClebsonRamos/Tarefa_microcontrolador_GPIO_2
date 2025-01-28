@@ -15,58 +15,14 @@ w = brando
 void contador_valter(){
   
   int time = 1000;
-  desenho('0');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-	
-	desenho('1');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-	
-	desenho('2');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-	desenho('3');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-	
-	desenho('4');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-	desenho('5');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-	
-	desenho('6');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-	desenho('7');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-	desenho('8');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-	desenho('9');
-	escrever_no_buffer(); // Escreve os dados nos LEDs.
-	sleep_ms(time);
-	limpar_o_buffer();
-
-
-}
+  for(int i = 0; i < 9; i++){
+    char num = '0' + 1;
+    desenho(num);
+    escrever_no_buffer(); // Escreve os dados nos LEDs.
+    sleep_ms(time);
+    limpar_o_buffer();
+  }
+  }
 
   char matriz_0[5][5]={
   {'*','Y','Y','Y','*'},
