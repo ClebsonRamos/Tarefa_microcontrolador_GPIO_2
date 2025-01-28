@@ -67,11 +67,7 @@ int main(void){
 	
     // inicializa teclado
 	keypad_init();
-
 	limpar_o_buffer();
-	contador_valter();
-
-    escrever_no_buffer();
 	_intensidade_ = 100;
 	
 	// A mágica acontece aqui :)
@@ -259,7 +255,7 @@ void desenho(int num){
 		}
         // Atualiza a matriz de LEDs e espera um tempo antes de mudar a cor
         escrever_no_buffer();
-        sleep_ms(300); // 300ms entre as mudanças de cor
+       sleep_ms(10); // 300ms entre as mudanças de cor
 	}
 }
 
