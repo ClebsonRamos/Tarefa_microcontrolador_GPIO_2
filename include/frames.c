@@ -16,8 +16,8 @@ void contador_valter(){
   
   int time = 1000;
   for(int i = 0; i < 9; i++){
-    char num = '0' + 1;
-    desenho(num);
+    
+    desenho(i);
     escrever_no_buffer(); // Escreve os dados nos LEDs.
     sleep_ms(time);
     limpar_o_buffer();
