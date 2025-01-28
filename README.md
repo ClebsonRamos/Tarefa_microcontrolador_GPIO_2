@@ -4,15 +4,15 @@ Este repositório contém a implementação de animações em uma matriz de LEDs
 
 ## Índice
 
-1. [Projeto](#projeto)
-2. [Objetivo](#objetivo)
-3. [Pré-requisitos](#pré-requisitos)
-4. [Configuração do Projeto](#configuração-do-projeto)
-5. [Estrutura do Repositório](#estrutura-do-repositório)
-6. [Funcionalidades](#funcionalidades)
-7. [Contribuição](#contribuição)
-8. [Testes](#testes)
-9. [Apresentação](#apresentação)
+- [Projeto: Animações em Matriz de LEDs 5x5 com Raspberry Pi Pico W](#projeto-animações-em-matriz-de-leds-5x5-com-raspberry-pi-pico-w)
+  - [Índice](#índice)
+  - [Objetivo](#objetivo)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Configuração do Projeto](#configuração-do-projeto)
+  - [Funcionalidades](#funcionalidades)
+  - [Contribuição](#contribuição)
+  - [Testes](#testes)
+  - [Apresentação](#apresentação)
 
 ## Objetivo
 
@@ -25,20 +25,18 @@ Implementar um sistema que controle animações em uma matriz de LEDs 5x5 com ba
   - C: Liga todos os LEDs na cor *vermelha* com 80% de intensidade.
   - D: Liga todos os LEDs na cor *verde* com 50% de intensidade.
   - #: Liga todos os LEDs na cor *branca* com 20% de intensidade.
-  - *: Reinicia o sistema para o modo de gravação via software.
 
 ## Pré-requisitos
 
 - *Software necessário:*
   - Visual Studio Code com extensão C/C++
-  - Pico SDK configurado
+  - Pico SDK configurado com extensão Raspberry Pi Pico
   - Simulador Wokwi integrado ao VS Code
   - Git para controle de versão
 - *Componentes simulados:*
   - Matriz de LEDs WS2812 5x5
   - Teclado matricial 4x4
-  - Buzzer (opcional)
-
+  - Buzzer 
 ## Configuração do Projeto
 
 1. Clone este repositório:
@@ -56,26 +54,27 @@ Implementar um sistema que controle animações em uma matriz de LEDs 5x5 com ba
    - Carregue a configuração do simulador Wokwi (arquivo wokwi.json) para testar o funcionamento do sistema.
 
 ## Estrutura do Repositório
-
+```
 Tarefa_microcontrolador_GPIO_2/
-├── .vscode/                 # Função principal e inicialização
-├── incluir/                 # Adiciona suporte a PWM
-├── .gitignore               # Arquivo de configuração do Git
-├── CMakeLists.txt           # Adicionado função para framework CMake
-├── README.md                # Documentação do projeto
-├── Tarefa_microcontrolador_GPIO_2.c  # Código principal com mudanças sobre o pino
-├── pico_sdk_import.cmake    # Função principal e inicialização do SDK
-├── WS2818B.PIO              # Função principal e inicialização
+├── .vscode/                           # Função principal e inicialização
+├── incluir/                           # Adiciona suporte a PWM
+├── .gitignore                         # Arquivo de configuração do Git
+├── CMakeLists.txt                     # Adicionado função para framework CMake
+├── README.md                          # Documentação do projeto
+├── Tarefa_microcontrolador_GPIO_2.c   # Código principal com mudanças sobre o pino
+├── pico_sdk_import.cmake              # Função principal e inicialização do SDK
+├── WS2818B.PIO                        # Função principal e inicialização
+```
 
 ## Funcionalidades
 
 1. *Animações personalizadas*:
-   - 5 animações diferentes controladas pelas teclas numéricas.
+   - 9 animações diferentes controladas pelas teclas numéricas.
    - Cada animação possui pelo menos 5 quadros com FPS definido.
+   - A tecla númerica "1" gera um sinal sonoro com o buzzer junto com a animação.
 
 2. *Modo de controle*:
    - Alteração do estado da matriz de LEDs com base nas teclas especiais.
-   - Reboot do sistema via tecla *.
 
 ## Contribuição
 
